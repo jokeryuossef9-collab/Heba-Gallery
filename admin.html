@@ -4,168 +4,373 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>لوحة تحكم Heba Gallery</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0A3B3A">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-  body{font-family:Tahoma,Arial,sans-serif;margin:0;background:#f4f7f6;color:#1d2b2a}
-  header{background:#0d4d4a;color:#c9a455;padding:12px 20px;display:flex;justify-content:space-between;align-items:center}
-  nav{padding:10px 20px;background:#fff;display:flex;gap:8px;border-bottom:1px solid #ddd}
-  .btn{padding:8px 16px;border-radius:8px;border:1px solid #0d4d4a;background:#fff;color:#0d4d4a;cursor:pointer;font:inherit}
-  .btn.on,.btn.p{background:#0d4d4a;color:#c9a455}
-  .btn.d{background:#c0392b;color:#fff;border-color:#c0392b}
-  main{max-width:900px;margin:auto;padding:20px}
-  .card{background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px #0002}
-  .row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-  label{display:block;margin:12px 0 4px;font-size:14px;color:#555}
-  input,textarea,select{width:100%;padding:9px;border:1px solid #ccc;border-radius:8px;font:inherit;box-sizing:border-box}
-  .thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  :root{--green:#0A3B3A;--gold:#C9A455;--cream:#F9F6F0;--white:#fff;--red:#c0392b;}
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Tahoma,Arial,sans-serif}
+  body{background:var(--cream);color:#1d2b2a;display:flex;min-height:100vh}
+  
+  /* Sidebar */
+  .sidebar{width:250px;background:var(--green);color:var(--gold);padding:20px 0;display:flex;flex-direction:column;position:fixed;height:100%;right:0}
+  .sidebar h2{text-align:center;margin-bottom:30px;font-size:20px}
+  .sidebar button{background:transparent;border:0;color:var(--gold);padding:15px 20px;text-align:right;font-size:16px;cursor:pointer;border-right:4px solid transparent;transition:0.3s}
+  .sidebar button:hover,.sidebar button.on{background:rgba(201,164,85,0.1);border-right-color:var(--gold)}
+  .sidebar .logout{margin-top:auto;color:#ff6b6b}
+  
+  /* Main Content */
+  .main{flex:1;margin-right:250px;padding:30px}
+  .card{background:var(--white);border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 4px 15px rgba(0,0,0,0.05)}
+  .header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+  h3{color:var(--green);font-size:22px}
+  
+  /* Forms & Buttons */
+  .btn{background:var(--green);color:var(--gold);border:0;padding:10px 20px;border-radius:8px;cursor:pointer;font-size:15px;font-weight:bold;transition:0.3s}
+  .btn:hover{opacity:0.9}
+  .btn.gold{background:var(--gold);color:var(--green)}
+  .btn.red{background:var(--red);color:white}
+  .btn.small{padding:6px 12px;font-size:13px}
+  label{display:block;margin:10px 0 5px;color:#555;font-size:14px}
+  input,textarea,select{width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;font-size:15px;margin-bottom:10px}
+  
+  /* Grids */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:15px}
+  .item-card{background:var(--white);border:1px solid #eee;border-radius:10px;padding:15px;position:relative}
+  .item-card img{width:100%;height:150px;object-fit:cover;border-radius:8px;margin-bottom:10px}
+  .item-card h4{color:var(--green);margin-bottom:5px}
+  .item-card .price{color:var(--gold);font-weight:bold;font-size:18px}
+  .item-card .actions{display:flex;gap:8px;margin-top:10px}
+  
+  /* Image Library */
+  .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px;margin-top:10px}
+  .media-grid img{width:100%;height:100px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
+  .media-grid img:hover{border-color:var(--gold)}
+  
+  /* Thumbs */
+  .thumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
   .thumbs>div{position:relative}
-  .thumbs img{width:86px;height:86px;object-fit:cover;border-radius:8px}
-  .thumbs button{position:absolute;top:-6px;left:-6px;background:#c0392b;color:#fff;border:0;border-radius:50%;width:24px;height:24px;cursor:pointer}
-  .small{color:#888;font-size:12px}
+  .thumbs img{width:80px;height:80px;object-fit:cover;border-radius:8px}
+  .thumbs button{position:absolute;top:-8px;left:-8px;background:var(--red);color:white;border:0;border-radius:50%;width:24px;height:24px;cursor:pointer}
+  
+  @media(max-width:768px){
+    body{flex-direction:column}
+    .sidebar{width:100%;height:auto;position:relative;flex-direction:row;overflow-x:auto;padding:10px}
+    .sidebar h2{display:none}
+    .sidebar button{white-space:nowrap;border-right:0;border-bottom:4px solid transparent;text-align:center}
+    .sidebar button.on{border-bottom-color:var(--gold);border-right-color:transparent}
+    .main{margin-right:0;padding:15px}
+  }
 </style>
 </head>
 <body>
 
-<div id="login" class="card" style="max-width:340px;margin:60px auto">
-  <h2>تسجيل الدخول</h2>
-  <label>البريد الإلكتروني</label><input id="em" type="email">
-  <label>كلمة المرور</label><input id="pw" type="password">
-  <p><button class="btn p" id="lb">دخول</button></p>
-  <p id="err" style="color:#c0392b"></p>
+<div id="loginView" style="display:flex;justify-content:center;align-items:center;height:100vh;width:100%">
+  <div class="card" style="width:340px">
+    <h3 style="text-align:center;margin-bottom:20px">تسجيل الدخول</h3>
+    <label>البريد الإلكتروني</label><input id="em" type="email">
+    <label>كلمة المرور</label><input id="pw" type="password">
+    <button class="btn" style="width:100%;margin-top:10px" id="lb">دخول</button>
+    <p id="err" style="color:var(--red);text-align:center;margin-top:10px"></p>
+  </div>
 </div>
 
-<div id="app" hidden>
-  <header><b>لوحة تحكم Heba Gallery</b><button class="btn" id="out">خروج</button></header>
-  <nav><button class="btn" id="tP">المنتجات</button><button class="btn" id="tS">الإعدادات</button></nav>
-  <main id="main"></main>
+<div id="appView" style="display:none;width:100%;display:flex">
+  <aside class="sidebar">
+    <h2>Heba Gallery</h2>
+    <button class="on" id="nav-products" onclick="nav('products')">📦 المنتجات</button>
+    <button id="nav-categories" onclick="nav('categories')">📑 الأقسام</button>
+    <button id="nav-media" onclick="nav('media')">🖼️ مكتبة الصور</button>
+    <button id="nav-settings" onclick="nav('settings')">⚙️ الإعدادات</button>
+    <button class="logout" onclick="logout()">🚪 تسجيل خروج</button>
+  </aside>
+  
+  <main class="main" id="mainContent"></main>
 </div>
 
 <script>
-  const sb = supabase.createClient('https://cawmrxhethpasbvcfzyb.supabase.co', 'sb_publishable_Snf_EmvV3YulYIkG2hkhOQ_GWMMerai');
-  const CAT = { wedding: 'تفاصيل الأفراح', custom: 'هدايا مخصصة', print: 'طباعة وهدايا دعائية' };
+const sb = supabase.createClient('https://cawmrxhethpasbvcfzyb.supabase.co', 'sb_publishable_Snf_EmvV3YulYIkG2hkhOQ_GWMMerai');
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+let currentData = [], currentCats = [], imgs = [];
+
+// Auth
+$('#lb').onclick = async () => {
+  const { error } = await sb.auth.signInWithPassword({ email: $('#em').value, password: $('#pw').value });
+  if (error) $('#err').textContent = error.message;
+  else { $('#loginView').style.display = 'none'; $('#appView').style.display = 'flex'; nav('products'); }
+};
+async function logout() { await sb.auth.signOut(); location.reload(); }
+async function checkAuth() {
+  const { data } = await sb.auth.getSession();
+  if (data.session) { $('#loginView').style.display = 'none'; $('#appView').style.display = 'flex'; nav('products'); }
+}
+checkAuth();
+
+// Navigation
+function nav(page) {
+  document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('on'));
+  document.getElementById('nav-' + page).classList.add('on');
+  if (page === 'products') renderProducts();
+  if (page === 'categories') renderCategories();
+  if (page === 'media') renderMedia();
+  if (page === 'settings') renderSettings();
+}
+
+// --- 1. Products ---
+async function renderProducts() {
+  $('#mainContent').innerHTML = '<p>جاري التحميل...</p>';
+  const [pRes, cRes] = await Promise.all([
+    sb.from('products').select('*').order('sort_order'),
+    sb.from('categories').select('*').order('sort_order')
+  ]);
+  currentData = pRes.data || [];
+  currentCats = cRes.data || [];
+  
+  let html = `<div class="header-row"><h3>إدارة المنتجات</h3><button class="btn gold" onclick="formProduct(null)">+ إضافة منتج جديد</button></div><div class="grid">`;
+  
+  if (currentData.length === 0) html += '<p>لا توجد منتجات.</p>';
+  
+  currentData.forEach(r => {
+    html += `
+      <div class="item-card">
+        <img src="${esc(r.images?.[0] || 'logo.jpg')}" alt="">
+        <h4>${esc(r.name)}</h4>
+        <div class="price">${r.price} ج.م ${r.old_price ? `<span style="color:#aaa;text-decoration:line-through;font-size:14px;margin-right:5px">${r.old_price}</span>`:''}</div>
+        <div style="font-size:12px;color:#666;margin-top:5px">${currentCats.find(c=>c.name===r.category)?.name || r.category} ${r.published ? '✅ منشور' : '❌ مخفي'}</div>
+        <div class="actions">
+          <button class="btn small gold" onclick="formProduct(${r.id})">تعديل</button>
+          <button class="btn small red" onclick="delProduct(${r.id})">حذف</button>
+        </div>
+      </div>`;
+  });
+  html += '</div>';
+  $('#mainContent').innerHTML = html;
+}
+
+function formProduct(id) {
+  const r = id ? currentData.find(x => x.id === id) : {};
+  imgs = [...(r.images || [])];
+  
+  let catOptions = currentCats.map(c => `<option value="${c.name}" ${c.name === r.category ? 'selected' : ''}>${c.name}</option>`).join('');
+  
+  $('#mainContent').innerHTML = `
+    <div class="header-row"><h3>${id ? 'تعديل منتج' : 'منتج جديد'}</h3><button class="btn" onclick="renderProducts()">رجوع</button></div>
+    <div class="card">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px">
+        <div>
+          <label>اسم المنتج</label><input id="f_name" value="${esc(r.name)}">
+          <label>القسم</label><select id="f_cat"><option value="">اختر القسم...</option>${catOptions}</select>
+          <label>السعر</label><input id="f_price" type="number" value="${r.price ?? ''}">
+          <label>السعر قبل الخصم (للعروض)</label><input id="f_old" type="number" value="${r.old_price ?? ''}">
+        </div>
+        <div>
+          <label>الوصف</label><textarea id="f_desc" rows="4">${esc(r.description)}</textarea>
+          <label>الترتيب (الأصغر يظهر الأول)</label><input id="f_sort" type="number" value="${r.sort_order ?? 0}">
+          <label><input type="checkbox" id="f_stock" ${(r.in_stock ?? true) ? 'checked' : ''}> متوفر</label>
+          <label><input type="checkbox" id="f_pub" ${(r.published ?? true) ? 'checked' : ''}> منشور</label>
+        </div>
+      </div>
+      
+      <hr style="margin:20px 0;border:0;border-top:1px solid #eee">
+      
+      <h4 style="color:var(--green);margin-bottom:10px">صور المنتج</h4>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <input type="file" accept="image/*" multiple onchange="uploadImg(this.files)" style="width:auto">
+        <button class="btn small gold" onclick="showMediaLib()">من مكتبة الصور</button>
+      </div>
+      <label style="margin-top:10px">أو الصق روابط صور خارجية (رابط في كل سطر)</label>
+      <textarea id="f_links" rows="2" placeholder="https://..."></textarea>
+      <div class="thumbs" id="thumbs"></div>
+      
+      <p style="margin-top:20px"><button class="btn gold" onclick="saveProduct(${id || 'null'})">حفظ المنتج</button></p>
+    </div>
+    
+    <!-- Media Modal -->
+    <div id="mediaModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;align-items:center;justify-content:center">
+      <div class="card" style="width:90%;max-width:800px;max-height:80vh;overflow:auto">
+        <div class="header-row"><h3>مكتبة الصور</h3><button class="btn red" onclick="$('#mediaModal').style.display='none'">إغلاق</button></div>
+        <div class="media-grid" id="mediaPickerGrid">جاري التحميل...</div>
+      </div>
+    </div>
+  `;
+  drawThumbs();
+}
+
+async function uploadImg(files) {
+  for (const f of files) {
+    const ext = (f.type.split('/')[1] || 'jpg').replace('jpeg', 'jpg');
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+    const { error } = await sb.storage.from('images').upload(path, f);
+    if (error) return alert('خطأ في الرفع: ' + error.message);
+    imgs.push(sb.storage.from('images').getPublicUrl(path).data.publicUrl);
+  }
+  drawThumbs();
+}
+
+function drawThumbs() {
+  if(!$('#thumbs')) return;
+  $('#thumbs').innerHTML = imgs.map((u, i) =>
+    `<div><img src="${esc(u)}"><button onclick="imgs.splice(${i},1);drawThumbs()">×</button></div>`).join('');
+}
+
+async function showMediaLib() {
+  $('#mediaModal').style.display = 'flex';
+  const { data, error } = await sb.storage.from('images').list();
+  if (error) return alert(error.message);
+  
+  if (data.length === 0) { $('#mediaPickerGrid').innerHTML = '<p>لا توجد صور مرفوعة.</p>'; return; }
+  
+  $('#mediaPickerGrid').innerHTML = data.map(file => {
+    const url = sb.storage.from('images').getPublicUrl(file.name).data.publicUrl;
+    return `<img src="${url}" onclick="pickImg('${url}')">`;
+  }).join('');
+}
+
+function pickImg(url) {
+  if(!imgs.includes(url)) imgs.push(url);
+  drawThumbs();
+  $('#mediaModal').style.display = 'none';
+}
+
+async function saveProduct(id) {
+  const name = $('#f_name').value.trim();
+  if (!name) return alert('اكتبي اسم المنتج');
+  
+  const links = $('#f_links').value.split('\n').map(s => s.trim()).filter(Boolean);
+  const obj = {
+    name, category: $('#f_cat').value,
+    price: Number($('#f_price').value) || 0,
+    old_price: $('#f_old').value ? Number($('#f_old').value) : null,
+    description: $('#f_desc').value,
+    images: [...imgs, ...links],
+    in_stock: $('#f_stock').checked, published: $('#f_pub').checked,
+    sort_order: Number($('#f_sort').value) || 0
+  };
+  
+  const res = id ? await sb.from('products').update(obj).eq('id', id) : await sb.from('products').insert(obj);
+  if (res.error) return alert(res.error.message);
+  renderProducts();
+}
+
+async function delProduct(id) {
+  if (!confirm('تأكيد حذف المنتج؟')) return;
+  await sb.from('products').delete().eq('id', id);
+  renderProducts();
+}
+
+// --- 2. Categories ---
+async function renderCategories() {
+  $('#mainContent').innerHTML = '<p>جاري التحميل...</p>';
+  const { data } = await sb.from('categories').select('*').order('sort_order');
+  currentCats = data || [];
+  
+  let html = `<div class="header-row"><h3>إدارة الأقسام</h3><button class="btn gold" onclick="formCat(null)">+ إضافة قسم جديد</button></div><div class="grid">`;
+  if (currentCats.length === 0) html += '<p>لا توجد أقسام.</p>';
+  
+  currentCats.forEach(c => {
+    html += `
+      <div class="item-card">
+        <h4>${esc(c.name)}</h4>
+        <div style="font-size:12px;color:#666">الترتيب: ${c.sort_order}</div>
+        <div class="actions">
+          <button class="btn small gold" onclick="formCat(${c.id})">تعديل</button>
+          <button class="btn small red" onclick="delCat(${c.id})">حذف</button>
+        </div>
+      </div>`;
+  });
+  html += '</div>';
+  $('#mainContent').innerHTML = html;
+}
+
+function formCat(id) {
+  const c = id ? currentCats.find(x => x.id === id) : {};
+  $('#mainContent').innerHTML = `
+    <div class="header-row"><h3>${id ? 'تعديل قسم' : 'قسم جديد'}</h3><button class="btn" onclick="renderCategories()">رجوع</button></div>
+    <div class="card" style="max-width:500px">
+      <label>اسم القسم</label><input id="c_name" value="${esc(c.name)}">
+      <label>الترتيب</label><input id="c_sort" type="number" value="${c.sort_order ?? 0}">
+      <p style="margin-top:20px"><button class="btn gold" onclick="saveCat(${id || 'null'})">حفظ</button></p>
+    </div>
+  `;
+}
+
+async function saveCat(id) {
+  const name = $('#c_name').value.trim();
+  if (!name) return alert('اكتبي اسم القسم');
+  const obj = { name, sort_order: Number($('#c_sort').value) || 0 };
+  const res = id ? await sb.from('categories').update(obj).eq('id', id) : await sb.from('categories').insert(obj);
+  if (res.error) return alert(res.error.message);
+  renderCategories();
+}
+
+async function delCat(id) {
+  if (!confirm('تأكيد حذف القسم؟ (المنتجات المرتبطة به لن تحذف)')) return;
+  await sb.from('categories').delete().eq('id', id);
+  renderCategories();
+}
+
+// --- 3. Media Library ---
+async function renderMedia() {
+  $('#mainContent').innerHTML = '<p>جاري التحميل...</p>';
+  const { data, error } = await sb.storage.from('images').list();
+  
+  let html = `<div class="header-row"><h3>مكتبة الصور</h3></div>`;
+  if (error) { html += `<p style="color:red">${error.message}</p>`; }
+  else if (data.length === 0) { html += '<p>لا توجد صور مرفوعة على السيرفر.</p>'; }
+  else {
+    html += `<div class="media-grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))">
+      ${data.map(file => {
+        const url = sb.storage.from('images').getPublicUrl(file.name).data.publicUrl;
+        return `<div style="text-align:center">
+          <img src="${url}" style="height:150px">
+          <button class="btn small gold" style="margin-top:5px" onclick="copyUrl('${url}')">نسخ الرابط</button>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }
+  $('#mainContent').innerHTML = html;
+}
+
+function copyUrl(url) {
+  navigator.clipboard.writeText(url);
+  alert('تم نسخ الرابط ✔');
+}
+
+// --- 4. Settings ---
+async function renderSettings() {
+  const { data } = await sb.from('site_settings').select('*');
+  const s = Object.fromEntries((data || []).map(r => [r.key, r.value]));
+  
   const SET = [
-    ['about', 'قصة البراند (الفقرات مفصولة بسطر فاضي)', 'area'],
     ['hero_text', 'وصف الصفحة الرئيسية', 'area'],
+    ['about_1', 'حكاية البراند - الجزء الأول', 'area'],
+    ['about_2', 'حكاية البراند - الجزء الثاني', 'area'],
+    ['about_3', 'نبذة عن هبه جاليري', 'area'],
+    ['vision', 'رؤيتنا', 'area'],
+    ['features', 'إيه اللي بيميزنا', 'area'],
     ['whatsapp', 'رقم الواتساب (بصيغة 2011...)'],
     ['facebook', 'رابط فيسبوك'], ['instagram', 'رابط انستجرام'], ['tiktok', 'رابط تيك توك']
   ];
-  let rows = [], imgs = [];
-  const $ = s => document.querySelector(s);
-  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const show = h => $('#main').innerHTML = h;
 
-  async function products() {
-    const { data, error } = await sb.from('products').select('*').order('sort_order');
-    if (error) return show(esc(error.message));
-    rows = data;
-    show(`<div class="row"><h3>المنتجات</h3><button class="btn p" onclick="form(null)">+ منتج جديد</button></div>` +
-      (rows.map(r => `<div class="card row">
-        <div>${r.images?.[0] ? `<img src="${esc(r.images[0])}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;vertical-align:middle"> ` : ''}
-          <b>${esc(r.name)}</b> <small>${CAT[r.category] || ''}</small> ${r.published ? '' : '<small style="color:#888">(مخفي)</small>'}</div>
-        <div><button class="btn" onclick="form(${r.id})">تعديل</button> <button class="btn d" onclick="del(${r.id})">حذف</button></div>
-      </div>`).join('') || '<p>لا توجد منتجات بعد</p>'));
-  }
+  $('#mainContent').innerHTML = `
+    <div class="header-row"><h3>إعدادات المتجر والنصوص</h3></div>
+    <div class="card">
+      ${SET.map(([k, l, t]) => `
+        <label>${l}</label>
+        ${t ? `<textarea data-k="${k}" rows="5">${esc(s[k])}</textarea>` : `<input data-k="${k}" value="${esc(s[k])}">`}
+      `).join('')}
+      <p style="margin-top:20px"><button class="btn gold" onclick="saveSettings()">حفظ الإعدادات</button></p>
+    </div>
+  `;
+}
 
-  function form(id) {
-    const r = id ? rows.find(x => x.id === id) : {};
-    imgs = [...(r.images || [])];
-    show(`<div class="card"><h3>${id ? 'تعديل منتج' : 'منتج جديد'}</h3>
-      <label>اسم المنتج</label><input id="f_name" value="${esc(r.name)}">
-      <label>القسم</label>
-      <select id="f_cat">${Object.entries(CAT).map(([k, v]) => `<option value="${k}" ${k === r.category ? 'selected' : ''}>${v}</option>`).join('')}</select>
-      <div class="row">
-        <div style="flex:1"><label>السعر (ج.م)</label><input id="f_price" type="number" value="${r.price ?? ''}"></div>
-        <div style="flex:1"><label>السعر قبل الخصم (اختياري)</label><input id="f_old" type="number" value="${r.old_price ?? ''}"></div>
-      </div>
-      <label>الوصف</label><textarea id="f_desc">${esc(r.description)}</textarea>
-      <label>صور المنتج: ارفع من التليفون أو الكمبيوتر</label>
-      <input type="file" accept="image/*" multiple onchange="upl(this.files)">
-      <label>أو الصق روابط صور من أي موقع استضافة (رابط في كل سطر)</label>
-      <textarea id="f_links" placeholder="https://..."></textarea>
-      <div class="thumbs" id="thumbs"></div>
-      <label><input type="checkbox" id="f_stock" ${(r.in_stock ?? true) ? 'checked' : ''} style="width:auto"> متوفر</label>
-      <label><input type="checkbox" id="f_feat" ${r.featured ? 'checked' : ''} style="width:auto"> مميز (يظهر بشارة)</label>
-      <label><input type="checkbox" id="f_pub" ${(r.published ?? true) ? 'checked' : ''} style="width:auto"> منشور في المتجر</label>
-      <label>الترتيب (الأصغر يظهر الأول)</label><input id="f_sort" type="number" value="${r.sort_order ?? 0}">
-      <p><button class="btn p" onclick="saveP(${id || 'null'})">حفظ</button> <button class="btn" onclick="products()">رجوع</button></p>
-    </div>`);
-    drawThumbs();
-  }
-
-  async function upl(files) {
-    for (const f of files) {
-      const ext = (f.type.split('/')[1] || 'jpg').replace('jpeg', 'jpg');
-      const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-      const { error } = await sb.storage.from('images').upload(path, f);
-      if (error) return alert(error.message);
-      imgs.push(sb.storage.from('images').getPublicUrl(path).data.publicUrl);
-    }
-    drawThumbs();
-  }
-
-  function drawThumbs() {
-    $('#thumbs').innerHTML = imgs.map((u, i) =>
-      `<div><img src="${esc(u)}"><button onclick="imgs.splice(${i},1);drawThumbs()">×</button></div>`).join('');
-  }
-
-  async function saveP(id) {
-    const name = $('#f_name').value.trim();
-    if (!name) return alert('اكتبي اسم المنتج');
-    const links = $('#f_links').value.split('\n').map(s => s.trim()).filter(Boolean);
-    const obj = {
-      name, category: $('#f_cat').value,
-      price: Number($('#f_price').value) || 0,
-      old_price: $('#f_old').value ? Number($('#f_old').value) : null,
-      description: $('#f_desc').value,
-      images: [...imgs, ...links],
-      in_stock: $('#f_stock').checked, featured: $('#f_feat').checked, published: $('#f_pub').checked,
-      sort_order: Number($('#f_sort').value) || 0
-    };
-    const res = id ? await sb.from('products').update(obj).eq('id', id) : await sb.from('products').insert(obj);
-    if (res.error) return alert(res.error.message);
-    products();
-  }
-
-  async function del(id) {
-    if (!confirm('حذف المنتج نهائياً؟')) return;
-    const { error } = await sb.from('products').delete().eq('id', id);
-    if (error) alert(error.message);
-    products();
-  }
-
-  async function settings() {
-    const { data } = await sb.from('site_settings').select('*');
-    const s = Object.fromEntries((data || []).map(r => [r.key, r.value]));
-    show(`<div class="card"><h3>إعدادات المتجر</h3>` + SET.map(([k, l, t]) => `<label>${l}</label>` +
-      (t ? `<textarea data-k="${k}">${esc(s[k])}</textarea>` : `<input data-k="${k}" value="${esc(s[k])}">`)).join('') +
-      `<p><button class="btn p" onclick="saveS()">حفظ الإعدادات</button></p></div>`);
-  }
-
-  async function saveS() {
-    const list = [...document.querySelectorAll('[data-k]')].map(e => ({ key: e.dataset.k, value: e.value }));
-    const { error } = await sb.from('site_settings').upsert(list);
-    alert(error ? error.message : 'تم الحفظ ✔');
-  }
-
-  function go(t) {
-    $('#tP').classList.toggle('on', t === 'P');
-    $('#tS').classList.toggle('on', t === 'S');
-    t === 'P' ? products() : settings();
-  }
-
-  async function start() {
-    const { data } = await sb.auth.getSession();
-    if (data.session) { $('#login').hidden = true; $('#app').hidden = false; go('P'); }
-  }
-
-  $('#lb').onclick = async () => {
-    const { error } = await sb.auth.signInWithPassword({ email: $('#em').value, password: $('#pw').value });
-    error ? $('#err').textContent = error.message : start();
-  };
-  $('#out').onclick = async () => { await sb.auth.signOut(); location.reload(); };
-  $('#tP').onclick = () => go('P');
-  $('#tS').onclick = () => go('S');
-  start();
+async function saveSettings() {
+  const list = [...document.querySelectorAll('[data-k]')].map(e => ({ key: e.dataset.k, value: e.value }));
+  const { error } = await sb.from('site_settings').upsert(list);
+  alert(error ? error.message : 'تم الحفظ بنجاح ✔');
+}
 </script>
 </body>
 </html>

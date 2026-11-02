@@ -1,0 +1,21 @@
+{
+  "name": "Heba Gallery",
+  "short_name": "Heba Gallery",
+  "description": "هدايا مميزة.. وتفاصيل بتتحكي",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0A3B3A",
+  "theme_color": "#0A3B3A",
+  "icons": [
+    {
+      "src": "logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
