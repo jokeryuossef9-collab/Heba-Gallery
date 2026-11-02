@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heba Gallery | هدايا مميزة.. وتفاصيل بتتحكي</title>
+<link rel="icon" href="logo.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--teal:#0d4d4a;--teal-d:#082f2d;--gold:#c9a455;--gold-l:#e8cf8f;--cream:#faf7f0;--ink:#1d2b2a;--mut:#6b7876}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Cairo,sans-serif;background:var(--cream);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+header{position:sticky;top:0;z-index:50;background:var(--teal);display:flex;align-items:center;justify-content:space-between;padding:10px 5%;box-shadow:0 2px 12px #0003}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Playfair Display',serif;font-size:20px;color:var(--gold)}
+.brand img{width:46px;height:46px;border-radius:50%;border:2px solid var(--gold)}
+nav a{margin-inline-start:16px;color:var(--gold-l);font-weight:600;font-size:15px}
+nav a:hover{color:var(--gold)}
+.cartbtn{background:var(--gold);color:var(--teal-d);border:0;border-radius:30px;padding:8px 16px;font:800 14px Cairo;cursor:pointer}
+.badge{background:var(--teal-d);color:var(--gold);border-radius:50%;padding:1px 7px;margin-inline-start:6px}
+.hero{background:linear-gradient(135deg,var(--teal-d),var(--teal));color:#fff;text-align:center;padding:70px 6% 60px}
+.hero img{width:150px;height:150px;border-radius:50%;border:3px solid var(--gold);box-shadow:0 0 30px #c9a45566}
+.hero h1{font-family:'Playfair Display',serif;color:var(--gold);font-size:40px;margin:18px 0 8px}
+.hero p{color:#dfe9e6;font-size:17px;max-width:600px;margin:0 auto 24px;line-height:1.8}
+.btn{display:inline-block;background:var(--gold);color:var(--teal-d);padding:12px 26px;border-radius:30px;font:800 15px Cairo;border:0;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--gold);margin-inline-start:10px}
+section{padding:50px 5%}
+h2{font-family:'Playfair Display',serif;color:var(--teal);font-size:30px;text-align:center;margin-bottom:8px}
+.sub{text-align:center;color:var(--mut);margin-bottom:24px}
+.filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.chip{border:1px solid var(--teal);background:#fff;color:var(--teal);padding:7px 16px;border-radius:30px;cursor:pointer;font:600 14px Cairo}
+.chip.on{background:var(--teal);color:var(--gold)}
+#search{display:block;width:min(420px,100%);margin:0 auto 24px;padding:11px 16px;border:1px solid #cfd8d6;border-radius:30px;font:15px Cairo;background:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.card{position:relative;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px #0d4d4a14;cursor:pointer;transition:transform .3s}
+.card:hover{transform:translateY(-6px)}
+.card img{width:100%;aspect-ratio:1;object-fit:cover;background:#eee}
+.card .i{padding:14px}
+.card h3{font-size:16px;margin-bottom:6px}
+.price{color:var(--teal);font-weight:800}
+.old{color:#aaa;text-decoration:line-through;font-size:13px;margin-inline-start:6px}
+.tag{position:absolute;top:10px;right:10px;background:var(--gold);color:var(--teal-d);font-size:12px;font-weight:800;padding:4px 10px;border-radius:20px}
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:1000px;margin:auto}
+.svc{background:#fff;border-top:3px solid var(--gold);border-radius:14px;padding:24px;line-height:1.9}
+.svc h3{color:var(--teal);margin-bottom:6px}
+.story{background:#fff}
+.story-text{max-width:760px;margin:auto;line-height:2.1;font-size:17px;white-space:pre-line}
+.contact{background:var(--teal-d);color:#dfe9e6;text-align:center}
+.contact h2{color:var(--gold)}
+.socials{display:flex;gap:14px;justify-content:center;margin:20px 0}
+.socials a{width:48px;height:48px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:800}
+.socials a:hover{background:var(--gold);color:var(--teal-d)}
+footer{background:#041f1e;color:#7f958f;text-align:center;padding:16px;font-size:13px}
+.wa{position:fixed;bottom:20px;left:20px;z-index:60;background:#25d366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 6px 18px #0005}
+.overlay{position:fixed;inset:0;background:#0009;display:none;z-index:100}
+.overlay.on{display:block}
+.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:18px;width:min(820px,94%);max-height:90vh;overflow:auto;display:none;grid-template-columns:1fr 1fr;z-index:101}
+.modal.on{display:grid}
+.modal .m-img{padding:18px}
+.modal .m-img>img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px}
+.thumbs{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.thumbs img{width:58px;height:58px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
+.thumbs img:hover{border-color:var(--gold)}
+.modal .m-info{padding:22px}
+.drawer{position:fixed;top:0;left:0;height:100%;width:min(400px,100%);background:#fff;display:none;flex-direction:column;z-index:101}
+.drawer.on{display:flex}
+.drawer input{width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border-radius:8px;font:inherit}
+.line{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #eee}
+.line img{width:58px;height:58px;border-radius:8px;object-fit:cover}
+.line div{flex:1}
+@media(max-width:700px){.modal.on{grid-template-columns:1fr}.hero h1{font-size:30px}nav a{display:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand"><img src="logo.jpg" alt="Heba Gallery">Heba Gallery</div>
+  <nav><a href="#shop">المتجر</a><a href="#services">خدماتنا</a><a href="#story">حكايتنا</a><a href="#contact">تواصل</a></nav>
+  <button class="cartbtn" onclick="openCart()">🛍️ السلة <span class="badge" id="cnt">0</span></button>
+</header>
+
+<div class="hero">
+  <img src="logo.jpg" alt="Heba Gallery">
+  <h1>Heba Gallery</h1>
+  <p id="hero-p">هدايا مميزة.. وتفاصيل بتتحكي. كل قطعة ليها حكاية وكل تفصيلة ليها شغف.</p>
+  <a class="btn" href="#shop">تسوقي الآن</a>
+  <a class="btn ghost" href="https://wa.me/201125830635" target="_blank">اطلبي عبر واتساب</a>
+</div>
+
+<section id="shop">
+  <h2>المتجر</h2>
+  <p class="sub">اختاري القطعة اللي تناسب مناسبتك</p>
+  <div class="filters" id="filters"></div>
+  <input id="search" placeholder="ابحثي عن منتج..." oninput="renderGrid()">
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="services">
+  <h2>إيه اللي بنقدمه؟</h2>
+  <p class="sub">تصميم وتنفيذ حسب الطلب، مع إضافة الأسماء والتواريخ والتفاصيل الشخصية</p>
+  <div class="services">
+    <div class="svc"><h3>تفاصيل الأفراح</h3>صواني الشبكة، مناديل كتب الكتاب، أطباق البصمة، مرايات العروسة، والإكسسوارات وتجهيز العروسة.</div>
+    <div class="svc"><h3>الهدايا المخصصة</h3>هدايا بالأسماء والصور والتصميمات الخاصة، وهدايا المناسبات والتخرج وأعياد الميلاد.</div>
+    <div class="svc"><h3>الطباعة والهدايا الدعائية</h3>مجات، تيشيرتات، ميداليات، نوت بوك، دروع ومنتجات دعائية للأفراد والشركات.</div>
+  </div>
+</section>
+
+<section id="story" class="story">
+  <h2>حكاية Heba Gallery</h2>
+  <p class="sub">وراء كل قطعة حكاية ❤️</p>
+  <div class="story-text" id="story"></div>
+</section>
+
+<section id="contact" class="contact">
+  <h2>تواصلي معنا</h2>
+  <p>براند مصري — تنفيذ حسب الطلب<br>🚚 شحن لجميع محافظات مصر<br>📱 للطلبات والاستفسار: 01125830635</p>
+  <div class="socials">
+    <a id="soc-facebook" href="#" target="_blank">f</a>
+    <a id="soc-instagram" href="#" target="_blank">ig</a>
+    <a id="soc-tiktok" href="#" target="_blank">tt</a>
+  </div>
+  <a class="btn" href="https://wa.me/201125830635" target="_blank">تواصلي عبر واتساب 💬</a>
+</section>
+
+<footer>© Heba Gallery — Print &amp; Gift. Stay tuned. Stay different. ✨</footer>
+
+<a id="wa" class="wa" href="https://wa.me/201125830635" target="_blank">💬</a>
+
+<div class="overlay" id="ov" onclick="closeAll()"></div>
+<div class="modal" id="pmodal"></div>
+
+<aside class="drawer" id="drawer">
+  <div style="padding:16px;display:flex;justify-content:space-between;align-items:center"><b style="color:var(--teal);font-size:18px">سلة المشتريات</b><button class="chip" onclick="closeAll()">✕</button></div>
+  <div id="items" style="padding:0 16px;overflow:auto;flex:1"></div>
+  <form id="cform" onsubmit="checkout(event)" style="padding:16px;border-top:1px solid #eee">
+    <div style="margin-bottom:6px">الإجمالي: <b class="price" id="total"></b></div>
+    <input id="cn" placeholder="الاسم" required>
+    <input id="cp" type="tel" placeholder="رقم الموبايل" required>
+    <input id="ca" placeholder="العنوان والمحافظة" required>
+    <button class="btn" style="width:100%">إتمام الطلب عبر واتساب</button>
+  </form>
+</aside>
+
+<script>
+  const sb = supabase.createClient('https://cawmrxhethpasbvcfzyb.supabase.co', ''sb_publishable_Snf_EmvV3YulYIkG2hkhOQ_GWMMerai);
+  const CAT = { wedding: 'تفاصيل الأفراح', custom: 'هدايا مخصصة', print: 'طباعة وهدايا دعائية' };
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const money = n => Number(n).toLocaleString('en') + ' ج.م';
+
+  let products = [], S = {}, cat = 'all', cur = null, qty = 1;
+  let cart = JSON.parse(localStorage.getItem('hg_cart') || '[]');
+
+  async function init() {
+    const [p, s] = await Promise.all([
+      sb.from('products').select('*').eq('published', true).order('sort_order'),
+      sb.from('site_settings').select('*')
+    ]);
+    products = p.data || [];
+    S = Object.fromEntries((s.data || []).map(r => [r.key, r.value]));
+    if (S.hero_text) $('#hero-p').textContent = S.hero_text;
+    if (S.about) $('#story').textContent = S.about;
+    if (S.whatsapp) { $('#wa').href = 'https://wa.me/' + S.whatsapp; }
+    ['facebook', 'instagram', 'tiktok'].forEach(k => { if (S[k]) $('#soc-' + k).href = S[k]; });
+    renderGrid();
+  }
+
+  function drawFilters() {
+    $('#filters').innerHTML = [['all', 'الكل'], ...Object.entries(CAT)]
+      .map(([k, l]) => `<button class="chip ${k === cat ? 'on' : ''}" onclick="setCat('${k}')">${l}</button>`).join('');
+  }
+  function setCat(k) { cat = k; drawFilters(); renderGrid(); }
+
+  function renderGrid() {
+    const q = $('#search').value.trim();
+    const items = products.filter(p => (cat === 'all' || p.category === cat) && p.name.includes(q));
+    $('#grid').innerHTML = items.map(p => `
+      <div class="card" onclick="openP(${p.id})">
+        ${p.featured ? '<span class="tag">مميز</span>' : ''}
+        <img src="${esc(p.images?.[0] || 'logo.jpg')}" alt="${esc(p.name)}" loading="lazy">
+        <div class="i">
+          <h3>${esc(p.name)}</h3>
+          <div class="price">${money(p.price)}${p.old_price ? `<span class="old">${money(p.old_price)}</span>` : ''}</div>
+          ${p.in_stock ? '' : '<small style="color:#c0392b">غير متوفر حالياً</small>'}
+        </div>
+      </div>`).join('') || '<p class="sub" style="grid-column:1/-1">لا توجد منتجات هنا حالياً</p>';
+  }
+
+  function openP(id) {
+    cur = products.find(p => p.id === id); qty = 1;
+    const imgs = cur.images?.length ? cur.images : ['logo.jpg'];
+    $('#pmodal').innerHTML = `
+      <div class="m-img">
+        <img id="mainimg" src="${esc(imgs[0])}" alt="">
+        <div class="thumbs">${imgs.map(u => `<img src="${esc(u)}" onclick="$('#mainimg').src=this.src">`).join('')}</div>
+      </div>
+      <div class="m-info">
+        <small style="color:var(--gold)">${CAT[cur.category] || ''}</small>
+        <h2 style="text-align:right;font-size:24px;margin:6px 0">${esc(cur.name)}</h2>
+        <div class="price" style="font-size:22px">${money(cur.price)}${cur.old_price ? `<span class="old">${money(cur.old_price)}</span>` : ''}</div>
+        <p style="line-height:1.9;color:var(--mut);margin:14px 0;white-space:pre-line">${esc(cur.description)}</p>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <button class="chip" onclick="qty=Math.max(1,qty-1);$('#q').textContent=qty">−</button>
+          <b id="q">1</b>
+          <button class="chip" onclick="qty++;$('#q').textContent=qty">+</button>
+        </div>
+        <button class="btn" style="width:100%" ${cur.in_stock ? '' : 'disabled'} onclick="addCart()">${cur.in_stock ? 'أضف للسلة 🛍️' : 'غير متوفر'}</button>
+      </div>`;
+    $('#pmodal').classList.add('on'); $('#ov').classList.add('on');
+  }
+
+  function addCart() {
+    const f = cart.find(i => i.id === cur.id);
+    if (f) f.qty += qty;
+    else cart.push({ id: cur.id, name: cur.name, price: cur.price, img: cur.images?.[0] || 'logo.jpg', qty });
+    save(); openCart();
+  }
+
+  function save() { localStorage.setItem('hg_cart', JSON.stringify(cart)); drawCart(); }
+
+  function drawCart() {
+    $('#cnt').textContent = cart.reduce((a, i) => a + i.qty, 0);
+    $('#total').textContent = money(cart.reduce((a, i) => a + i.price * i.qty, 0));
+    $('#items').innerHTML = cart.map((i, k) => `
+      <div class="line"><img src="${esc(i.img)}"><div><b>${esc(i.name)}</b><div class="price">${money(i.price * i.qty)}</div></div>
+      <button class="chip" onclick="chg(${k},-1)">−</button><b>${i.qty}</b><button class="chip" onclick="chg(${k},1)">+</button></div>`).join('')
+      || '<p class="sub" style="margin-top:30px">السلة فاضية</p>';
+  }
+
+  function chg(k, d) { cart[k].qty += d; if (cart[k].qty < 1) cart.splice(k, 1); save(); }
+
+  function openCart() { drawCart(); $('#drawer').classList.add('on'); $('#ov').classList.add('on'); }
+
+  function closeAll() {
+    document.querySelectorAll('.overlay,.modal,.drawer').forEach(e => e.classList.remove('on'));
+  }
+
+  function checkout(e) {
+    e.preventDefault();
+    if (!cart.length) return;
+    const total = cart.reduce((a, i) => a + i.price * i.qty, 0);
+    const lines = cart.map(i => `- ${i.name} × ${i.qty} = ${money(i.price * i.qty)}`).join('\n');
+    const msg = `مرحباً Heba Gallery 🌸\nأود إتمام الطلب:\n${lines}\n\n*الإجمالي:* ${money(total)}\n*الاسم:* ${$('#cn').value}\n*الموبايل:* ${$('#cp').value}\n*العنوان:* ${$('#ca').value}`;
+    window.open(`https://wa.me/${S.whatsapp || '201125830635'}?text=${encodeURIComponent(msg)}`, '_blank');
+    cart = []; save(); closeAll();
+  }
+
+  drawFilters(); drawCart(); init();
+</script>
+</body>
+</html>

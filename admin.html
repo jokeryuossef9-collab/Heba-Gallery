@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لوحة تحكم Heba Gallery</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  body{font-family:Tahoma,Arial,sans-serif;margin:0;background:#f4f7f6;color:#1d2b2a}
+  header{background:#0d4d4a;color:#c9a455;padding:12px 20px;display:flex;justify-content:space-between;align-items:center}
+  nav{padding:10px 20px;background:#fff;display:flex;gap:8px;border-bottom:1px solid #ddd}
+  .btn{padding:8px 16px;border-radius:8px;border:1px solid #0d4d4a;background:#fff;color:#0d4d4a;cursor:pointer;font:inherit}
+  .btn.on,.btn.p{background:#0d4d4a;color:#c9a455}
+  .btn.d{background:#c0392b;color:#fff;border-color:#c0392b}
+  main{max-width:900px;margin:auto;padding:20px}
+  .card{background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px #0002}
+  .row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  label{display:block;margin:12px 0 4px;font-size:14px;color:#555}
+  input,textarea,select{width:100%;padding:9px;border:1px solid #ccc;border-radius:8px;font:inherit;box-sizing:border-box}
+  .thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .thumbs>div{position:relative}
+  .thumbs img{width:86px;height:86px;object-fit:cover;border-radius:8px}
+  .thumbs button{position:absolute;top:-6px;left:-6px;background:#c0392b;color:#fff;border:0;border-radius:50%;width:24px;height:24px;cursor:pointer}
+  .small{color:#888;font-size:12px}
+</style>
+</head>
+<body>
+
+<div id="login" class="card" style="max-width:340px;margin:60px auto">
+  <h2>تسجيل الدخول</h2>
+  <label>البريد الإلكتروني</label><input id="em" type="email">
+  <label>كلمة المرور</label><input id="pw" type="password">
+  <p><button class="btn p" id="lb">دخول</button></p>
+  <p id="err" style="color:#c0392b"></p>
+</div>
+
+<div id="app" hidden>
+  <header><b>لوحة تحكم Heba Gallery</b><button class="btn" id="out">خروج</button></header>
+  <nav><button class="btn" id="tP">المنتجات</button><button class="btn" id="tS">الإعدادات</button></nav>
+  <main id="main"></main>
+</div>
+
+<script>
+  const sb = supabase.createClient('https://cawmrxhethpasbvcfzyb.supabase.co', 'sb_publishable_Snf_EmvV3YulYIkG2hkhOQ_GWMMerai');
+  const CAT = { wedding: 'تفاصيل الأفراح', custom: 'هدايا مخصصة', print: 'طباعة وهدايا دعائية' };
+  const SET = [
+    ['about', 'قصة البراند (الفقرات مفصولة بسطر فاضي)', 'area'],
+    ['hero_text', 'وصف الصفحة الرئيسية', 'area'],
+    ['whatsapp', 'رقم الواتساب (بصيغة 2011...)'],
+    ['facebook', 'رابط فيسبوك'], ['instagram', 'رابط انستجرام'], ['tiktok', 'رابط تيك توك']
+  ];
+  let rows = [], imgs = [];
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const show = h => $('#main').innerHTML = h;
+
+  async function products() {
+    const { data, error } = await sb.from('products').select('*').order('sort_order');
+    if (error) return show(esc(error.message));
+    rows = data;
+    show(`<div class="row"><h3>المنتجات</h3><button class="btn p" onclick="form(null)">+ منتج جديد</button></div>` +
+      (rows.map(r => `<div class="card row">
+        <div>${r.images?.[0] ? `<img src="${esc(r.images[0])}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;vertical-align:middle"> ` : ''}
+          <b>${esc(r.name)}</b> <small>${CAT[r.category] || ''}</small> ${r.published ? '' : '<small style="color:#888">(مخفي)</small>'}</div>
+        <div><button class="btn" onclick="form(${r.id})">تعديل</button> <button class="btn d" onclick="del(${r.id})">حذف</button></div>
+      </div>`).join('') || '<p>لا توجد منتجات بعد</p>'));
+  }
+
+  function form(id) {
+    const r = id ? rows.find(x => x.id === id) : {};
+    imgs = [...(r.images || [])];
+    show(`<div class="card"><h3>${id ? 'تعديل منتج' : 'منتج جديد'}</h3>
+      <label>اسم المنتج</label><input id="f_name" value="${esc(r.name)}">
+      <label>القسم</label>
+      <select id="f_cat">${Object.entries(CAT).map(([k, v]) => `<option value="${k}" ${k === r.category ? 'selected' : ''}>${v}</option>`).join('')}</select>
+      <div class="row">
+        <div style="flex:1"><label>السعر (ج.م)</label><input id="f_price" type="number" value="${r.price ?? ''}"></div>
+        <div style="flex:1"><label>السعر قبل الخصم (اختياري)</label><input id="f_old" type="number" value="${r.old_price ?? ''}"></div>
+      </div>
+      <label>الوصف</label><textarea id="f_desc">${esc(r.description)}</textarea>
+      <label>صور المنتج: ارفع من التليفون أو الكمبيوتر</label>
+      <input type="file" accept="image/*" multiple onchange="upl(this.files)">
+      <label>أو الصق روابط صور من أي موقع استضافة (رابط في كل سطر)</label>
+      <textarea id="f_links" placeholder="https://..."></textarea>
+      <div class="thumbs" id="thumbs"></div>
+      <label><input type="checkbox" id="f_stock" ${(r.in_stock ?? true) ? 'checked' : ''} style="width:auto"> متوفر</label>
+      <label><input type="checkbox" id="f_feat" ${r.featured ? 'checked' : ''} style="width:auto"> مميز (يظهر بشارة)</label>
+      <label><input type="checkbox" id="f_pub" ${(r.published ?? true) ? 'checked' : ''} style="width:auto"> منشور في المتجر</label>
+      <label>الترتيب (الأصغر يظهر الأول)</label><input id="f_sort" type="number" value="${r.sort_order ?? 0}">
+      <p><button class="btn p" onclick="saveP(${id || 'null'})">حفظ</button> <button class="btn" onclick="products()">رجوع</button></p>
+    </div>`);
+    drawThumbs();
+  }
+
+  async function upl(files) {
+    for (const f of files) {
+      const ext = (f.type.split('/')[1] || 'jpg').replace('jpeg', 'jpg');
+      const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { error } = await sb.storage.from('images').upload(path, f);
+      if (error) return alert(error.message);
+      imgs.push(sb.storage.from('images').getPublicUrl(path).data.publicUrl);
+    }
+    drawThumbs();
+  }
+
+  function drawThumbs() {
+    $('#thumbs').innerHTML = imgs.map((u, i) =>
+      `<div><img src="${esc(u)}"><button onclick="imgs.splice(${i},1);drawThumbs()">×</button></div>`).join('');
+  }
+
+  async function saveP(id) {
+    const name = $('#f_name').value.trim();
+    if (!name) return alert('اكتبي اسم المنتج');
+    const links = $('#f_links').value.split('\n').map(s => s.trim()).filter(Boolean);
+    const obj = {
+      name, category: $('#f_cat').value,
+      price: Number($('#f_price').value) || 0,
+      old_price: $('#f_old').value ? Number($('#f_old').value) : null,
+      description: $('#f_desc').value,
+      images: [...imgs, ...links],
+      in_stock: $('#f_stock').checked, featured: $('#f_feat').checked, published: $('#f_pub').checked,
+      sort_order: Number($('#f_sort').value) || 0
+    };
+    const res = id ? await sb.from('products').update(obj).eq('id', id) : await sb.from('products').insert(obj);
+    if (res.error) return alert(res.error.message);
+    products();
+  }
+
+  async function del(id) {
+    if (!confirm('حذف المنتج نهائياً؟')) return;
+    const { error } = await sb.from('products').delete().eq('id', id);
+    if (error) alert(error.message);
+    products();
+  }
+
+  async function settings() {
+    const { data } = await sb.from('site_settings').select('*');
+    const s = Object.fromEntries((data || []).map(r => [r.key, r.value]));
+    show(`<div class="card"><h3>إعدادات المتجر</h3>` + SET.map(([k, l, t]) => `<label>${l}</label>` +
+      (t ? `<textarea data-k="${k}">${esc(s[k])}</textarea>` : `<input data-k="${k}" value="${esc(s[k])}">`)).join('') +
+      `<p><button class="btn p" onclick="saveS()">حفظ الإعدادات</button></p></div>`);
+  }
+
+  async function saveS() {
+    const list = [...document.querySelectorAll('[data-k]')].map(e => ({ key: e.dataset.k, value: e.value }));
+    const { error } = await sb.from('site_settings').upsert(list);
+    alert(error ? error.message : 'تم الحفظ ✔');
+  }
+
+  function go(t) {
+    $('#tP').classList.toggle('on', t === 'P');
+    $('#tS').classList.toggle('on', t === 'S');
+    t === 'P' ? products() : settings();
+  }
+
+  async function start() {
+    const { data } = await sb.auth.getSession();
+    if (data.session) { $('#login').hidden = true; $('#app').hidden = false; go('P'); }
+  }
+
+  $('#lb').onclick = async () => {
+    const { error } = await sb.auth.signInWithPassword({ email: $('#em').value, password: $('#pw').value });
+    error ? $('#err').textContent = error.message : start();
+  };
+  $('#out').onclick = async () => { await sb.auth.signOut(); location.reload(); };
+  $('#tP').onclick = () => go('P');
+  $('#tS').onclick = () => go('S');
+  start();
+</script>
+</body>
+</html>
