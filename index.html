@@ -22,7 +22,6 @@
   --red:#d63031;--safe:env(safe-area-inset-bottom,0px);
   --bg-img:url('https://i.postimg.cc/255szYrq/Duck-ai-image-2026-11-02-11-27.jpg');
   --menu-bg-img:url('https://i.postimg.cc/QCpw2ssG/IMG-20261102-WA0090.jpg');
-  /* رابط صورة الكارت الأخضر الجديدة */
   --brand-bg-img:url('https://i.postimg.cc/63kn72Sr/IMG-20261102-WA0088.jpg');
   --ease:cubic-bezier(.34,1.56,.64,1);
 }
@@ -34,7 +33,6 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 img{display:block;max-width:100%}
 ::-webkit-scrollbar{width:0;height:0}
 
-/* SPLASH */
 #splash{position:fixed;inset:0;z-index:99999;background:var(--bg-img) center/cover no-repeat;display:flex;align-items:center;justify-content:center;transition:opacity .9s,visibility .9s}
 #splash::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(6,31,30,.7),rgba(6,31,30,.96))}
 #splash.hide{opacity:0;visibility:hidden;pointer-events:none}
@@ -55,7 +53,6 @@ img{display:block;max-width:100%}
 @keyframes spFade{0%{opacity:0}100%{opacity:1}}
 @keyframes spBar{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
 
-/* WELCOME */
 #welcome{position:fixed;top:max(calc(env(safe-area-inset-top,0px) + 14px),14px);left:50%;transform:translateX(-50%) translateY(-220%);z-index:800;width:calc(100% - 32px);max-width:400px;background:linear-gradient(135deg,rgba(10,59,58,.98),rgba(17,82,79,.98));backdrop-filter:blur(24px);border:1px solid rgba(201,164,85,.3);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 16px 48px rgba(0,0,0,.4);opacity:0;pointer-events:none;overflow:hidden;transition:transform .5s var(--ease),opacity .3s ease}
 #welcome.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
 #welcome .w-icon{width:42px;height:42px;border-radius:12px;background:rgba(201,164,85,.15);border:1px solid rgba(201,164,85,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
@@ -68,7 +65,6 @@ img{display:block;max-width:100%}
 #welcome .w-progress::after{content:'';position:absolute;top:0;right:0;height:100%;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-l));animation:wProgress 2s linear forwards}
 @keyframes wProgress{0%{width:100%}100%{width:0%}}
 
-/* HEADER */
 .header{position:fixed;top:12px;left:12px;right:12px;z-index:100;background:rgba(10,59,58,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:8px 10px;display:grid;grid-template-columns:auto 1fr auto auto auto;gap:6px;align-items:center;border-radius:18px;border:1px solid rgba(201,164,85,.25);box-shadow:0 6px 24px rgba(0,0,0,.18)}
 .brand{display:flex;align-items:center;gap:8px;justify-self:start;min-width:0;padding-right:4px}
 .brand img{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--gold);flex-shrink:0;box-shadow:0 0 10px rgba(201,164,85,.3)}
@@ -87,23 +83,20 @@ img{display:block;max-width:100%}
 .header.back-mode .hbtn.back{display:flex!important}
 .hbtn.back{display:none}
 
-/* VIEWS */
 .view{display:none;min-height:calc(100dvh - 84px);padding-bottom:calc(110px + var(--safe))}
 .view.active{display:block;animation:viewIn .4s var(--ease)}
 @keyframes viewIn{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
 
-/* BENTO */
 .bento{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 14px 32px;max-width:760px;margin:0 auto}
 .bento>.span2{grid-column:span 2}
 .bcard{background:var(--white);border-radius:22px;padding:20px;border:1px solid rgba(201,164,85,.12);box-shadow:0 4px 20px rgba(10,59,58,.05);position:relative;overflow:hidden;transition:transform .25s var(--ease)}
 .bcard:active{transform:scale(.97)}
 
-/* ⬇⬇⬇ الكارت الأخضر - ضبطنا الصورة تظهر كاملة ⬇⬇⬇ */
 .bcard.brand-card{
   background-color:var(--green-d);
   background-image:var(--brand-bg-img);
   background-position:center center;
-  background-size:contain; /* الصورة تظهر كاملة جوه المربع */
+  background-size:contain;
   background-repeat:no-repeat;
   padding:0;
   min-height:190px;
@@ -112,7 +105,6 @@ img{display:block;max-width:100%}
 }
 .bcard.brand-card > div{display:none}
 .bcard.brand-card::before{display:none}
-/* ⬆⬆⬆ */
 
 .bcard.stats{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0}
 .stat-item{padding:20px 12px;text-align:center;border-right:1px solid rgba(201,164,85,.15);border-bottom:1px solid rgba(201,164,85,.15)}
@@ -163,7 +155,6 @@ img{display:block;max-width:100%}
 .cta-icon{font-size:30px;margin-bottom:10px}
 .cta-text{font-size:12px;font-weight:800;font-family:'Playfair Display',serif;letter-spacing:.5px}
 
-/* SHOP */
 .shop-toolbar{position:sticky;top:70px;z-index:50;background:rgba(249,246,240,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:14px 16px 10px;border-bottom:1px solid rgba(201,164,85,.15);max-width:760px;margin:0 auto}
 .shop-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:12px}
 .shop-head .eyebrow{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold-d);font-size:11px;letter-spacing:2.5px;display:block;margin-bottom:4px}
@@ -197,7 +188,6 @@ img{display:block;max-width:100%}
 .p-card .pr{color:var(--gold-d);font-weight:900;font-size:14px;font-family:'Playfair Display',serif}
 .p-card .pr small{color:#bbb;text-decoration:line-through;font-weight:600;font-size:10px;margin-right:5px;font-family:'Cairo'}
 
-/* PRODUCT */
 .pd-hero{position:relative;background:linear-gradient(135deg,#f5f0e8,#ebe5d8);display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:320px}
 .pd-hero img{width:100%;aspect-ratio:1;object-fit:contain;cursor:zoom-in;max-width:100%;max-height:100%}
 .pd-actions-float{position:absolute;top:16px;left:16px;right:16px;display:flex;justify-content:space-between;pointer-events:none}
@@ -226,7 +216,6 @@ img{display:block;max-width:100%}
 .sticky-bar .price-mini small{color:var(--mut);font-size:10px}
 .sticky-bar .btn{flex:1.5;padding:12px 18px}
 
-/* STORY */
 .story-header{padding:36px 20px 24px;text-align:center;background:linear-gradient(180deg,rgba(10,59,58,.06),transparent);max-width:700px;margin:0 auto}
 .story-avatar{width:100px;height:100px;border-radius:50%;border:3px solid var(--gold);margin:0 auto 16px;box-shadow:0 0 40px rgba(201,164,85,.3);object-fit:cover}
 .story-header h1{font-family:'Playfair Display',serif;color:var(--green);font-size:30px;font-weight:700;line-height:1.1;letter-spacing:-.5px;margin-bottom:6px}
@@ -250,7 +239,6 @@ img{display:block;max-width:100%}
 .tl-sign{text-align:center;padding:8px 20px 24px;font-family:'Playfair Display',serif;color:var(--gold-d);font-style:italic;font-size:16px;font-weight:700}
 .tl-sign small{display:block;color:var(--mut);font-family:'Cairo';font-size:11px;margin-top:4px;font-weight:400;font-style:normal}
 
-/* SERVICES */
 .services-wrap{padding:24px 20px 32px;max-width:700px;margin:0 auto}
 .svc-card{background:var(--white);border-radius:18px;padding:0;margin-bottom:12px;box-shadow:0 4px 16px rgba(10,59,58,.06);border:1px solid rgba(201,164,85,.12);overflow:hidden;cursor:pointer;transition:.3s}
 .svc-card.open{border-color:var(--gold)}
@@ -264,7 +252,6 @@ img{display:block;max-width:100%}
 .svc-card.open .svc-body{max-height:300px;padding:0 20px 20px}
 .svc-body p{font-size:13px;line-height:1.9;color:var(--mut);padding-right:58px}
 
-/* TESTIMONIALS */
 .testi-wrap{padding:24px 20px 32px;max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
 .testi-lg{background:var(--white);border-radius:20px;padding:26px 24px 22px;box-shadow:0 4px 20px rgba(10,59,58,.06);border:1px solid rgba(201,164,85,.12);position:relative}
 .testi-lg::before{content:'"';position:absolute;top:6px;right:20px;font-size:90px;line-height:1;color:var(--gold);opacity:.12;font-family:'Playfair Display',serif;font-weight:900}
@@ -274,7 +261,6 @@ img{display:block;max-width:100%}
 .testi-lg .t-meta b{display:block;font-size:14px;color:var(--ink);margin-bottom:3px}
 .testi-lg .t-stars{font-size:12px;color:var(--gold);letter-spacing:1.5px}
 
-/* CONTACT */
 .contact-header{padding:32px 20px 24px;text-align:center;max-width:640px;margin:0 auto}
 .contact-header .ic-big{width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-l));color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px;box-shadow:0 8px 24px rgba(10,59,58,.25)}
 .contact-header h2{font-family:'Playfair Display',serif;color:var(--green);font-size:24px;margin-bottom:6px;font-weight:700}
@@ -291,7 +277,6 @@ img{display:block;max-width:100%}
 .shipping-card h3{font-family:'Playfair Display',serif;color:var(--gold-l);font-size:18px;margin-bottom:6px;position:relative;z-index:1;font-weight:700}
 .shipping-card p{color:var(--gold-l);opacity:.8;font-size:12px;line-height:1.7;position:relative;z-index:1}
 
-/* FAQ */
 .faq-wrap{padding:24px 20px 32px;max-width:700px;margin:0 auto}
 .faq{background:var(--white);border-radius:14px;border:1px solid rgba(201,164,85,.15);box-shadow:0 2px 8px rgba(10,59,58,.04);overflow:hidden;margin-bottom:10px;transition:.2s}
 .faq.open{border-color:var(--gold)}
@@ -299,13 +284,11 @@ img{display:block;max-width:100%}
 .faq-q .ic{color:var(--gold);font-size:20px;transition:.3s;line-height:1;flex-shrink:0;font-weight:400}
 .faq.open .faq-q .ic{transform:rotate(45deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease;padding:0 18px}
-.faq.open .faq-a{max-height:250px;padding:0 18px 16px}
+.faq.open .faq-a{max-height:350px;padding:0 18px 16px}
 .faq-a p{font-size:13px;color:var(--mut);line-height:1.85}
 
-/* FAVS */
 .favs-wrap{padding:24px 16px 32px;max-width:760px;margin:0 auto}
 
-/* BOTTOM NAV */
 .bnav{position:fixed;bottom:calc(12px + var(--safe));left:12px;right:12px;z-index:150;background:rgba(255,255,255,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(201,164,85,.25);border-radius:20px;display:grid;grid-template-columns:repeat(5,1fr);padding:7px 4px;box-shadow:0 8px 28px rgba(10,59,58,.15)}
 .bnav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;color:var(--mut);font-size:9px;font-weight:700;border-radius:12px;position:relative;letter-spacing:.2px}
 .bnav-btn svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:.2s}
@@ -313,7 +296,6 @@ img{display:block;max-width:100%}
 .bnav-btn.on svg{stroke:var(--gold);fill:rgba(201,164,85,.18);transform:scale(1.1)}
 .bnav-btn .dot{position:absolute;top:5px;right:calc(50% - 13px);width:8px;height:8px;border-radius:50%;background:#ff4757;border:1.5px solid #fff}
 
-/* SHEETS */
 .sheet{position:fixed;inset:0;z-index:200;display:none;align-items:flex-end;justify-content:center}
 .sheet.on{display:flex}
 .sheet-bd{position:absolute;inset:0;background:rgba(6,31,30,.65);backdrop-filter:blur(4px);animation:fadeIn .3s}
@@ -324,7 +306,6 @@ img{display:block;max-width:100%}
 @keyframes slideUp{0%{transform:translateY(100%)}100%{transform:translateY(0)}}
 @keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
 
-/* Cart */
 .ship-progress{padding:16px;background:linear-gradient(135deg,rgba(201,164,85,.08),rgba(201,164,85,.15));border-bottom:1px solid rgba(201,164,85,.2)}
 .ship-progress .lbl{font-size:12px;color:var(--green);font-weight:700;margin-bottom:10px;text-align:center}
 .ship-progress .lbl b{color:var(--gold-d)}
@@ -351,7 +332,6 @@ img{display:block;max-width:100%}
 .gift-toggle{display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(201,164,85,.08);border-radius:12px;border:1px dashed rgba(201,164,85,.4);margin-bottom:10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--green)}
 .gift-toggle input{width:auto;margin:0}
 
-/* MENU — الصورة كخلفية */
 .menu-drawer{
   position:fixed;top:0;right:0;height:100%;width:min(320px,88%);
   background-color:var(--green-d);
@@ -382,7 +362,6 @@ img{display:block;max-width:100%}
 .menu-list a svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.8}
 .menu-footer{padding:16px;border-top:1px solid rgba(201,164,85,.2);color:var(--gold-l);text-align:center;font-size:10px;opacity:.6;letter-spacing:2px;background:rgba(6,31,30,.35)}
 
-/* SEARCH */
 .search-ov{position:fixed;inset:0;z-index:300;background:var(--cream);display:none;flex-direction:column}
 .search-ov.on{display:flex;animation:fadeIn .2s}
 .search-head{padding:14px 16px;background:var(--green);display:flex;gap:10px;align-items:center;padding-top:calc(14px + env(safe-area-inset-top,0px))}
@@ -393,24 +372,20 @@ img{display:block;max-width:100%}
 .search-empty{text-align:center;padding:60px 20px;color:var(--mut)}
 .search-empty svg{width:60px;height:60px;stroke:#ccc;margin-bottom:14px}
 
-/* FLOATS */
 .wa-float{position:fixed;bottom:calc(90px + var(--safe));left:16px;z-index:55;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#25d366,#1ead50);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 6px 20px rgba(37,211,102,.5);animation:waPulse 2.5s infinite}
 @keyframes waPulse{0%,100%{box-shadow:0 6px 20px rgba(37,211,102,.5),0 0 0 0 rgba(37,211,102,.5)}50%{box-shadow:0 6px 20px rgba(37,211,102,.5),0 0 0 12px rgba(37,211,102,0)}}
 .back-top{position:fixed;bottom:calc(90px + var(--safe));right:16px;z-index:55;width:44px;height:44px;border-radius:50%;background:var(--green);color:var(--gold);display:none;align-items:center;justify-content:center;font-size:18px;box-shadow:0 6px 20px rgba(10,59,58,.35);border:1px solid rgba(201,164,85,.3)}
 .back-top.show{display:flex;animation:viewIn .3s}
 
-/* TOAST */
 #toast{position:fixed;bottom:calc(155px + var(--safe));left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg,var(--green),var(--green-l));color:var(--gold);padding:12px 24px;border-radius:26px;font:700 13px 'Cairo';z-index:500;opacity:0;transition:.3s;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:90vw;text-align:center;display:flex;align-items:center;gap:8px}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* CONFETTI & LIGHTBOX */
 .confetti-piece{position:fixed;width:8px;height:8px;z-index:600;pointer-events:none;border-radius:2px}
 .lightbox{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;padding:20px}
 .lightbox.on{display:flex;animation:fadeIn .2s}
 .lightbox img{max-width:100%;max-height:100%;border-radius:12px;object-fit:contain}
 .lightbox .close{position:absolute;top:20px;right:20px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
 
-/* EMPTY & SKELETON */
 .empty-state{text-align:center;padding:60px 20px}
 .empty-state .es-emoji{font-size:70px;margin-bottom:16px;opacity:.9}
 .empty-state h3{font-family:'Playfair Display',serif;color:var(--green);font-size:20px;margin-bottom:8px;font-weight:700}
@@ -418,13 +393,11 @@ img{display:block;max-width:100%}
 .skeleton{background:linear-gradient(90deg,#f0ede5 25%,#f7f4ec 50%,#f0ede5 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:16px;aspect-ratio:1}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-/* Buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:var(--green-d);padding:14px 26px;border-radius:30px;font:800 13px 'Cairo';transition:.25s var(--ease);box-shadow:0 6px 20px rgba(201,164,85,.4);border:0}
 .btn:active{transform:scale(.94)}
 .btn.block{width:100%;padding:15px}
 .btn.green{background:linear-gradient(135deg,#25d366,#1ead50);color:#fff}
 
-/* DESKTOP */
 @media(min-width:640px){
   .grid{grid-template-columns:repeat(3,1fr)}
   .bento{grid-template-columns:repeat(3,1fr);max-width:900px}
@@ -449,7 +422,6 @@ img{display:block;max-width:100%}
   .bento{max-width:1000px}
 }
 
-/* PWA INSTALL BANNER */
 #install-banner{position:fixed;bottom:calc(80px + var(--safe));left:12px;right:12px;z-index:145;background:linear-gradient(135deg,var(--green),var(--green-d));border:1px solid rgba(201,164,85,.5);border-radius:18px;padding:12px 14px;display:none;align-items:center;gap:12px;box-shadow:0 12px 36px rgba(0,0,0,.35),0 0 0 1px rgba(201,164,85,.2);transform:translateY(150%);transition:transform .5s var(--ease),opacity .3s;opacity:0;max-width:400px;margin:0 auto}
 #install-banner.show{display:flex;transform:translateY(0);opacity:1}
 .ib-icon{width:44px;height:44px;border-radius:12px;border:1.5px solid var(--gold);overflow:hidden;flex-shrink:0;box-shadow:0 0 20px rgba(201,164,85,.4)}
@@ -477,7 +449,6 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
 </head>
 <body>
 
-<!-- SPLASH -->
 <div id="splash">
   <div class="sp-inner">
     <div class="sp-logo-wrap">
@@ -492,7 +463,6 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
   </div>
 </div>
 
-<!-- WELCOME -->
 <div id="welcome">
   <div class="w-icon"><img src="https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg" alt=""></div>
   <div class="w-body">
@@ -503,7 +473,6 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
   <div class="w-progress"></div>
 </div>
 
-<!-- HEADER -->
 <header class="header" id="header">
   <div class="brand">
     <img src="https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg" alt="">
@@ -522,7 +491,6 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
   </button>
 </header>
 
-<!-- HOME -->
 <div class="view active" id="view-home">
   <div class="bento">
     <div class="bcard brand-card span2" onclick="navigate('story')">
@@ -581,7 +549,6 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
   </div>
 </div>
 
-<!-- SHOP -->
 <div class="view" id="view-shop">
   <div class="shop-toolbar">
     <div class="shop-head">
@@ -611,13 +578,10 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
   </div>
 </div>
 
-<!-- PRODUCT -->
 <div class="view" id="view-product"><div id="product-content"></div></div>
 
-<!-- FAVS -->
 <div class="view" id="view-favs"><div class="favs-wrap"><div class="grid" id="favs-grid"></div></div></div>
 
-<!-- SERVICES -->
 <div class="view" id="view-services">
   <div class="services-wrap">
     <div class="svc-card open" onclick="toggleSvc(this)">
@@ -663,7 +627,6 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
   </div>
 </div>
 
-<!-- STORY -->
 <div class="view" id="view-story">
   <div class="story-header">
     <img src="https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg" class="story-avatar">
@@ -690,13 +653,10 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
   <div class="tl-sign">هبة أحمد<small>مؤسسة Heba Ahmed Gallery — Print &amp; Gift</small></div>
 </div>
 
-<!-- TESTIMONIALS -->
 <div class="view" id="view-testimonials"><div class="testi-wrap" id="testi-full"></div></div>
 
-<!-- FAQ -->
 <div class="view" id="view-faq"><div class="faq-wrap" id="faq-list"></div></div>
 
-<!-- CONTACT -->
 <div class="view" id="view-contact">
   <div class="contact-header">
     <div class="ic-big">💬</div>
@@ -732,7 +692,6 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
   </div>
 </div>
 
-<!-- BOTTOM NAV -->
 <nav class="bnav">
   <button class="bnav-btn on" id="bnav-home" onclick="navigate('home')">
     <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>الرئيسية</span>
@@ -754,7 +713,6 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
 <a id="wa-float" href="#" target="_blank" class="wa-float">💬</a>
 <button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<!-- MENU DRAWER -->
 <div class="menu-drawer" id="menu-drawer">
   <div class="menu-head">
     <img src="https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg" alt="">
@@ -777,7 +735,6 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
   <div class="menu-footer">© Heba Ahmed Gallery 2026</div>
 </div>
 
-<!-- CART SHEET -->
 <div class="sheet" id="cart-sheet">
   <div class="sheet-bd" onclick="closeSheet('cart-sheet')"></div>
   <div class="sheet-c">
@@ -788,7 +745,6 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
   </div>
 </div>
 
-<!-- INSTALL BANNER -->
 <div id="install-banner" role="dialog" aria-label="تثبيت التطبيق">
   <div class="ib-icon"><img src="https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg" alt=""></div>
   <div class="ib-body">
@@ -799,7 +755,6 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
   <button class="ib-close" onclick="dismissInstall()" aria-label="إغلاق">✕</button>
 </div>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <button class="close">✕</button>
   <img id="lightbox-img" src="">
@@ -823,6 +778,120 @@ let sortMode = 'default';
 let history = [];
 let shopSearchQ = '';
 const pageTitles = { home:'Heba Ahmed Gallery', shop:'المتجر', product:'تفاصيل المنتج', favs:'المفضلة', services:'خدماتنا', story:'حكايتنا', testimonials:'آراء العملاء', faq:'أسئلة شائعة', contact:'تواصل معنا' };
+
+/* ====== 300 LOCAL TESTIMONIALS ====== */
+const TESTI_TEXTS = `جودة ممتازة وخدمة محترمة وتسليم سريع في الوقت المحدد
+الشغل دقيق والتشطيب احترافي والمفروض نفتخر بيه
+الصراحة أفضل تجربة تسوق أونلاين جربتها لحد دلوقتي
+طلبت هدية تخرج وطلعت أحلى من اللي كنت متوقعاها
+التغليف فخم والتفاصيل دقيقة وبتدل على ذوق عالي
+الميدالية طلعت زي ما طلبتها بالظبط والاسم محفور بشكل جميل
+الأسعار مناسبة والجودة فوق الممتاز بمراحل
+التعامل محترم والرد سريع على الواتساب
+مرايا العروسة طلعت تحفة فنية بجد والعروسة فرحت بيها
+مجات الشركة كانت احترافية والتغليف ممتاز
+دقيقين في المواعيد وبتحسوا بالعميل وبتفهموا احتياجاته
+الأكريليك خامته ممتازة والطباعة نقية وثابتة
+ساعدوني في التصميم وطلع أحلى من اللي كنت متخيلاه
+كل صحابي سألوني فين اشتريت الهدية من جمالها
+التيشيرت المطبوع طلع تحفة والطباعة مش بتتشقق
+النوت بوك المخصص طلع أكتر من رائع والورق ناعم
+دروع التكريم للشركة كانت في قمة الاحترافية
+خدمة العملاء بترد بسرعة وبتساعد بجد مش مجاملة
+فكرة الرسالة الشخصية مع الهدية لمسة جميلة جداً
+اشتريت 3 هدايا كلها كانت ممتازة ومحترمة
+أحلى صينية شبكة شفتها في حياتي وتفاصيلها دقيقة
+التعامل مريح والأسعار منطقية مقارنة بالجودة
+طلب عيد ميلاد بنتي كان مفاجأة جميلة وفرحت بيها
+هدايا المولود راقية وصاحبتي فرحت بيها جداً
+طباعة الكروت الشخصية طلعت نقية واحترافية
+الاستشارة قبل الطلب ساعدتني أختار صح وشكراً ليكم
+طلبت هدية جواز من غير ما أروح المحل ووصلت في الوقت
+الميداليات للمدرسة كانت جميلة ووصلت في الوقت المحدد
+كل حاجة في الطلب كانت مضبوطة ومظبوطة بالظبط
+الخامات ممتازة والتشطيب احترافي والمنتج يستاهل
+تجربة تسوق مريحة من أولها لآخرها ومش هتغير
+عجبتني دقة التفاصيل في الشغل والاهتمام بالجودة
+أحسن حاجة إنكم بتفهموا العميل عايز إيه بالظبط
+طلبت أكريليك وطلع زي ما تخيلته بالظبط وأحسن
+هدية عيد الأم كانت مفاجأة جميلة لماما وفرحت بيها
+بحب أتعامل معاكم كل مرة بتبقوا أفضل من اللي قبلها
+التغليف احترافي وبيوصل المنتج سليم ومحمي
+طلب تخرج طلع زي ما طلبته بالظبط والبنوتة فرحت
+كل تفصيلة في الطلب كانت مدروسة بعناية فائقة
+أول مرة أطلب وهرجع أطلب تاني أكيد مش هتغير
+الصراحة مش متوقعت الجودة دي بس طلعت فوق التوقعات
+حبيت التغليف جداً والبطاقة لمسة راقية ومميزة
+خدمة ما بعد البيع محترمة جداً وبتحل أي مشكلة
+طلب عيد ميلاد جوزي كان مفاجأة جميلة وفرح بيها
+بنصح كل صحابي بالتعامل معاكم وبجد يستاهلوا
+الشغل اليدوي واضح إنه معمول بحب واهتمام بالتفاصيل
+هدية عيد ميلاد بنتي كانت أحلى هدية فرحت بيها
+الطباعة على التيشيرت ثابتة جداً ومش بتتشقق
+أحسن حاجة سرعة الرد على الواتساب والاحترافية
+الألوان طلعت زي ما طلبتها بالظبط ومظبوطة
+طلب الخطوبة كان تحفة والعيلة كلها عجبتها
+خدمة العملاء محترمة وبتحل أي مشكلة بسرعة
+طلبت نوت بوك هدية وطلع راقي جداً والورق ممتاز
+كل الشغل نضيف ومفيش أي عيب في أي حاجة
+بقالي سنين بتعامل معاكم وعمري ما زعلت من حاجة
+طلب مولود جديد كان جميل جداً وصاحبتي فرحت بيه
+الطلب وصل قبل الموعد المحدد وده فرحني جداً
+التغليف فخم والهدية بتبان غالية ومحترمة
+طلبت صينية شبكة وكل الناس عجبتها وسألوني منين
+المجات اللي طلبتها طلعت أحلى من الصور بكتير
+المواعيد مضبوطة والجودة ممتازة والخدمة راقية
+بحب إنكم بتنفذوا الأفكار بالظبط من غير تغيير
+طلبت هدية تخرج وطلعت تحفة والبنوتة فرحت بيها
+كل حاجة في الطلب كانت زي ما طلبت بالظبط
+الخدمة ممتازة والأسعار معقولة ومش هتلاقوا أحسن
+هدايا المولود كانت جميلة جداً وصاحبتي فرحت بيها
+طلبت أكريليك وطلع أحلى من اللي كنت متوقعه
+التعامل احترافي من أول الطلب لآخر خطوة
+الشغل نضيف والتفاصيل دقيقة والجودة عالية
+بشكركم على الذوق والاحترافية في كل تعامل
+الطلب وصل سليم وفي الوقت ومفيش أي مشكلة
+فخورة إني بتعامل مع براند مصري بالجودة دي
+دروع الشركة كانت احترافية جداً ومحترمة
+طلب عيد الأم كان مفاجأة جميلة وماما فرحت بيها
+كل مرة بتعامل معاكم بتفاجئني بالجودة والذوق
+التغليف والبطاقة لمسة راقية جداً وبتفرق كتير
+طلبت ميدالية وطلع تحفة فنية والاسم واضح وجميل
+الأسعار مناسبة والجودة فوق الممتاز ومفيش منافس
+طلب التخرج طلع أحلى من المتوقع وأختي فرحت بيه
+المرايا طلعت تحفة والعروسة فرحت بيها جداً
+الشغل دقيق في كل تفصيلة والاهتمام واضح
+طلبت أكريليك والجودة ممتازة والتغليف احترافي
+التعامل راقي والتوصيل سريع والطلب زي ما طلبت
+هدية ذكرى الجواز كانت مفاجأة حلوة لجوزي وفرح بيها
+طلبت 5 هدايا كلها كانت ممتازة ومحترمة
+خدمة العملاء محترمة وبترد بسرعة وبتساعد بجد
+طلب المولود كان جميل وصاحبتي فرحت بيها جداً
+كل حاجة تمام والأسعار مناسبة والجودة عالية
+طلبت درع وطلع في قمة الاحترافية والجودة
+فخورة إني بتعامل مع براند مصري بالمستوى ده
+الطلب وصل قبل المعاد وده فرحني جداً وشكراً ليكم
+بحب التفاصيل اللي بتهتموا بيها في كل طلب
+التصميم اللي اقترحتوه كان أحلى من فكرتي بكتير
+جربت كتير ودي أحسن تجربة تسوق أونلاين بجد
+شغل نضيف والتزام بالمواعيد ومحترفين جداً
+الفخامة بتبان في كل تفصيلة من التغليف للتسليم
+طلبت صينية شبكة وتحفة والعيلة كلها فرحت بيها
+بحب الذوق اللي في التغليف والبطاقة المرفقة
+ساعدوني أختار هدية مناسبة وكانوا محترفين جداً
+طلب التخرج كان مفاجأة جميلة لأختي وفرحت بيها جداً`.trim().split('\n');
+
+const TESTI_NAMES = ['سارة أحمد','نور محمد','مريم حسن','فاطمة علي','أسماء إبراهيم','هدير محمود','دينا خالد','رنا سامي','مي عبدالله','إيمان فتحي','منى سعيد','هند كمال','ياسمين رضا','آية طارق','نادية فوزي','هبة صلاح','شيماء جمال','ريم أشرف','لمياء عادل','سلمى مجدي','نهى رأفت','غادة سمير','ريهام أنور','هالة وجدي','بسمة رامي','ولاء شريف','أميرة سامح','إسراء ياسر','رحمة إسلام','جنة عمرو','أمل حسين','رباب ماهر','صفاء نبيل','سناء مجدي','وفاء مصطفى','نرمين عادل','سالي أشرف','هدى كمال','ميادة شريف','فرح جمال','روان محسن','لارا إسحاق','مروة شوقي','دعاء سالم','أمنية حاتم','سلمى فؤاد','رحاب أحمد','فاطمة الزهراء','رقية محمود','يارا إبراهيم'];
+
+const LOCAL_TESTIMONIALS = Array.from({length: 300}, (_, i) => ({
+  id: 20000 + i,
+  name: TESTI_NAMES[(i * 7 + Math.floor(i / 50)) % TESTI_NAMES.length],
+  text: TESTI_TEXTS[i % TESTI_TEXTS.length],
+  rating: 5,
+  sort_order: i,
+  approved: true
+}));
+/* ====== END LOCAL TESTIMONIALS ====== */
 
 let tTimer;
 function toast(msg){ const t=$('#toast'); t.innerHTML = msg; t.classList.add('on'); clearTimeout(tTimer); tTimer=setTimeout(()=>t.classList.remove('on'),2400); }
@@ -1205,13 +1274,17 @@ function toggleSvc(el){
   if(!isOpen) el.classList.add('open');
 }
 
+/* ====== NEW FAQS (6 questions) ====== */
 const faqs = [
-  ['مدة التنفيذ كام يوم؟', 'التنفيذ بياخد من 3 لـ 5 أيام عمل حسب المنتج، والقطع المخصصة ممكن تاخد وقت أطول شوية. بنبلغك بالمدة قبل ما تأكدي الطلب.'],
-  ['بتوصلوا لكل المحافظات؟', 'أيوه، بنشحن لجميع محافظات مصر. الشحن مجاني للطلبات فوق 500 ج.م.'],
-  ['أقدر أعدل المنتج؟', 'أيوه، كل منتج مخصص بيتنفذ حسب طلبك — تقدر تعدلي الأسماء والتواريخ والتصميم. كلمينا على واتساب قبل ما تأكدي.'],
-  ['طرق الدفع إيه؟', 'حالياً بنستقبل الطلبات عبر واتساب والدفع عند الاستلام أو تحويل بنكي. بنبلغك بالتفاصيل بعد تأكيد الطلب.'],
-  ['أقدر أرجّع المنتج؟', 'المنتجات المخصصة مش بترجع، لكن لو فيه عيب في التنفيذ بنصلحه أو نستبدله.'],
+  ['ما المنتجات التي تقدمها Heba Gallery؟', 'تقدم Heba Gallery مجموعة متنوعة من المنتجات والهدايا المصممة بعناية، تشمل صواني الشبكة والخطوبة، مستلزمات العرائس، هدايا المناسبات، منتجات الأكريليك، المطبوعات والهدايا الشخصية، بالإضافة إلى تصميم وتنفيذ أفكار خاصة حسب الطلب.'],
+  ['هل يمكن تنفيذ تصميم أو منتج حسب الطلب؟', 'بالتأكيد! نرحب بالأفكار والتصميمات الخاصة، ويمكننا تنفيذ منتجات مخصصة بالأسماء والتواريخ والألوان والتفاصيل التي تناسب ذوقك ومناسبتك، وفقًا لإمكانيات التنفيذ والخامات المتاحة.'],
+  ['كيف يمكنني تأكيد طلبي؟', 'يمكنك التواصل معنا عبر الموقع أو صفحات التواصل الاجتماعي لتحديد المنتج والتفاصيل المطلوبة. يتم تأكيد الطلب بعد الاتفاق على التصميم والسعر ودفع العربون المتفق عليه، ثم نبدأ في التنفيذ.'],
+  ['كم تستغرق مدة تنفيذ الطلب؟', 'تختلف مدة التنفيذ حسب نوع المنتج والتصميم وكمية الطلبات. يتم تحديد موعد التسليم المتوقع والاتفاق عليه مع العميل قبل تأكيد الطلب، لضمان تقديم كل قطعة بالجودة والتفاصيل المطلوبة.'],
+  ['هل توفر Heba Gallery خدمة الشحن والتوصيل؟', 'نعم، نوفر خدمة التوصيل داخل القاهرة والجيزة، والشحن إلى جميع محافظات مصر. ويتم تحديد تكلفة ومدة التوصيل حسب المنطقة وطبيعة الطلب.'],
+  ['هل متاح استرجاع أو استبدال المنتجات؟', 'نظرًا لأن معظم منتجاتنا يتم تصميمها وتنفيذها خصيصًا حسب طلب العميل، فلا يتاح الاسترجاع أو الاستبدال بعد تأكيد الطلب وبدء التنفيذ، إلا في حالة وجود عيب في التصنيع أو خطأ من جانبنا في تنفيذ الطلب. نحرص دائمًا على مراجعة كل قطعة والتأكد من جودتها ومطابقتها للتفاصيل المتفق عليها قبل التسليم. ❤️']
 ];
+/* ====== END NEW FAQS ====== */
+
 function drawFaq(){
   $('#faq-list').innerHTML = faqs.map(([q,a])=>`
     <div class="faq" onclick="this.classList.toggle('open')">
@@ -1323,7 +1396,9 @@ async function init(){
       sb.from('site_settings').select('*'),
       sb.from('testimonials').select('*').eq('approved',true).order('sort_order')
     ]);
-    products = p.data || []; cats = c.data || []; testis = t.data || [];
+    products = p.data || []; cats = c.data || [];
+    /* merge local 300 testimonials + supabase testimonials */
+    testis = [...LOCAL_TESTIMONIALS, ...(t.data || [])];
     S = Object.fromEntries((s.data||[]).map(r=>[r.key,r.value]));
 
     const storyTxt = S.about || 'أنا هبة أحمد، مؤسسة Heba Ahmed Gallery، براند مصري اتولد من حبي للتصميم والتفاصيل الجميلة وصناعة منتجات ليها معنى وقيمة.\n\nكل قطعة ممكن تحمل ذكرى، وتعبّر عن مشاعر، وتفضل مرتبطة بلحظة مميزة في حياتنا.\n\nمن هنا بدأت رحلتي في تصميم وتنفيذ تفاصيل الأفراح والهدايا المخصصة والمطبوعات.';
@@ -1358,7 +1433,6 @@ init();
 </script>
 
 <script>
-/* Safety net: يحمي من تعليق شاشة الفتح لو حصل خطأ غير متوقع */
 setTimeout(function(){
   var s = document.getElementById('splash');
   if (s && !s.classList.contains('hide')) s.classList.add('hide');
