@@ -1,21 +1,56 @@
-const CACHE_NAME = 'heba-gallery-v1';
-const urlsToCache = [
-  './',
-  './index.html',
-  './logo.jpg',
-  './manifest.json'
-];
-
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-  );
-});
-
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
-  );
-});
+{
+  "name": "Heba Gallery | هدايا مميزة",
+  "short_name": "Heba Gallery",
+  "description": "هدايا مميزة.. وتفاصيل بتتحكي",
+  "start_url": "./index.html",
+  "scope": "./",
+  "id": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A3B3A",
+  "theme_color": "#0A3B3A",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["shopping", "lifestyle", "personalization"],
+  "icons": [
+    {
+      "src": "logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    },
+    {
+      "src": "logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "المتجر",
+      "short_name": "المتجر",
+      "description": "تصفح المنتجات",
+      "url": "./index.html#shop"
+    },
+    {
+      "name": "السلة",
+      "short_name": "السلة",
+      "description": "سلة المشتريات",
+      "url": "./index.html#cart"
+    }
+  ]
+}
