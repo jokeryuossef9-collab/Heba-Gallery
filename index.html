@@ -7,6 +7,10 @@
 <link rel="icon" href="https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0A3B3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Heba Gallery">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" href="https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -61,7 +65,7 @@ img{display:block;max-width:100%}
 #welcome .w-progress::after{content:'';position:absolute;top:0;right:0;height:100%;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-l));animation:wProgress 2s linear forwards}
 @keyframes wProgress{0%{width:100%}100%{width:0%}}
 
-/* ═══════ HEADER — Brand Right, Actions Left ═══════ */
+/* ═══════ HEADER ═══════ */
 .header{position:fixed;top:12px;left:12px;right:12px;z-index:100;background:rgba(10,59,58,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:8px 10px;display:grid;grid-template-columns:auto 1fr auto auto auto;gap:6px;align-items:center;border-radius:18px;border:1px solid rgba(201,164,85,.25);box-shadow:0 6px 24px rgba(0,0,0,.18)}
 .brand{display:flex;align-items:center;gap:8px;justify-self:start;min-width:0;padding-right:4px}
 .brand img{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--gold);flex-shrink:0;box-shadow:0 0 10px rgba(201,164,85,.3)}
@@ -213,7 +217,7 @@ img{display:block;max-width:100%}
 .sticky-bar .price-mini small{color:var(--mut);font-size:10px}
 .sticky-bar .btn{flex:1.5;padding:12px 18px}
 
-/* ═══════ STORY (Timeline) ═══════ */
+/* ═══════ STORY ═══════ */
 .story-header{padding:36px 20px 24px;text-align:center;background:linear-gradient(180deg,rgba(10,59,58,.06),transparent);max-width:700px;margin:0 auto}
 .story-avatar{width:100px;height:100px;border-radius:50%;border:3px solid var(--gold);margin:0 auto 16px;box-shadow:0 0 40px rgba(201,164,85,.3);object-fit:cover}
 .story-header h1{font-family:'Playfair Display',serif;color:var(--green);font-size:30px;font-weight:700;line-height:1.1;letter-spacing:-.5px;margin-bottom:6px}
@@ -237,7 +241,7 @@ img{display:block;max-width:100%}
 .tl-sign{text-align:center;padding:8px 20px 24px;font-family:'Playfair Display',serif;color:var(--gold-d);font-style:italic;font-size:16px;font-weight:700}
 .tl-sign small{display:block;color:var(--mut);font-family:'Cairo';font-size:11px;margin-top:4px;font-weight:400;font-style:normal}
 
-/* ═══════ SERVICES (Numbered Accordion) ═══════ */
+/* ═══════ SERVICES ═══════ */
 .services-wrap{padding:24px 20px 32px;max-width:700px;margin:0 auto}
 .svc-card{background:var(--white);border-radius:18px;padding:0;margin-bottom:12px;box-shadow:0 4px 16px rgba(10,59,58,.06);border:1px solid rgba(201,164,85,.12);overflow:hidden;cursor:pointer;transition:.3s}
 .svc-card.open{border-color:var(--gold)}
@@ -418,6 +422,39 @@ img{display:block;max-width:100%}
   .shop-filters{max-width:1000px}
   .bento{max-width:1000px}
 }
+
+/* ═══════ PWA INSTALL BANNER ═══════ */
+#install-banner{
+  position:fixed;bottom:calc(80px + var(--safe));left:12px;right:12px;
+  z-index:145;background:linear-gradient(135deg,var(--green),var(--green-d));
+  border:1px solid rgba(201,164,85,.5);border-radius:18px;padding:12px 14px;
+  display:none;align-items:center;gap:12px;
+  box-shadow:0 12px 36px rgba(0,0,0,.35),0 0 0 1px rgba(201,164,85,.2);
+  transform:translateY(150%);transition:transform .5s var(--ease),opacity .3s;
+  opacity:0;max-width:400px;margin:0 auto;
+}
+#install-banner.show{display:flex;transform:translateY(0);opacity:1}
+.ib-icon{width:44px;height:44px;border-radius:12px;border:1.5px solid var(--gold);overflow:hidden;flex-shrink:0;box-shadow:0 0 20px rgba(201,164,85,.4)}
+.ib-icon img{width:100%;height:100%;object-fit:cover}
+.ib-body{flex:1;min-width:0;text-align:right}
+.ib-title{color:var(--gold);font-size:13px;font-weight:800;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib-sub{color:var(--gold-l);font-size:10px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib-install{background:linear-gradient(135deg,var(--gold),var(--gold-l));color:var(--green-d);padding:9px 16px;border-radius:20px;font-size:12px;font-weight:900;white-space:nowrap;box-shadow:0 4px 12px rgba(201,164,85,.4);border:0;transition:.2s}
+.ib-install:active{transform:scale(.94)}
+.ib-close{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.1);color:var(--gold-l);font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:0}
+body.has-install-banner .wa-float,
+body.has-install-banner .back-top{bottom:calc(175px + var(--safe));transition:bottom .35s var(--ease)}
+body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
+#menu-install-item{display:none;background:linear-gradient(135deg,rgba(201,164,85,.18),rgba(201,164,85,.08))!important;border:1px solid rgba(201,164,85,.35);margin-bottom:8px!important;position:relative;overflow:hidden}
+#menu-install-item::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5}
+.ios-inst-modal{position:fixed;inset:0;z-index:9999;background:rgba(6,31,30,.85);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s}
+.ios-inst-card{background:var(--cream);border-radius:22px;padding:26px 22px;max-width:340px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4);position:relative;z-index:1}
+.ios-inst-card h3{font-family:'Playfair Display',serif;color:var(--green);font-size:19px;margin-bottom:14px;font-weight:700}
+.ios-inst-steps{text-align:right;color:var(--ink);font-size:13px;line-height:2.2;margin-bottom:18px}
+.ios-inst-steps .step{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.ios-inst-steps .num{width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--green-d);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;flex-shrink:0}
+.ios-inst-steps .ico{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:24px;background:#007aff;color:#fff;border-radius:6px;font-size:12px;font-weight:900;padding:0 4px;flex-shrink:0;margin-right:auto}
+.ios-inst-btn{background:linear-gradient(135deg,var(--gold),var(--gold-l));color:var(--green-d);padding:12px 28px;border-radius:24px;font-weight:900;font-size:13px;border:0;box-shadow:0 6px 20px rgba(201,164,85,.4)}
 </style>
 </head>
 <body>
@@ -448,7 +485,7 @@ img{display:block;max-width:100%}
   <div class="w-progress"></div>
 </div>
 
-<!-- HEADER — Brand on the right, actions on the left -->
+<!-- HEADER -->
 <header class="header" id="header">
   <div class="brand">
     <img src="https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg" alt="">
@@ -467,7 +504,7 @@ img{display:block;max-width:100%}
   </button>
 </header>
 
-<!-- HOME (BENTO) -->
+<!-- HOME -->
 <div class="view active" id="view-home">
   <div class="bento">
     <div class="bcard brand-card span2" onclick="navigate('story')">
@@ -710,6 +747,7 @@ img{display:block;max-width:100%}
 <a id="wa-float" href="#" target="_blank" class="wa-float">💬</a>
 <button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
+<!-- MENU DRAWER -->
 <div class="menu-drawer" id="menu-drawer">
   <div class="menu-head">
     <img src="https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg" alt="">
@@ -717,6 +755,10 @@ img{display:block;max-width:100%}
     <div class="s">PRINT &amp; GIFT</div>
   </div>
   <div class="menu-list">
+    <a onclick="closeMenu();promptInstall()" id="menu-install-item">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span>📲 تثبيت التطبيق</span>
+    </a>
     <a onclick="closeMenu();navigate('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>الرئيسية</a>
     <a onclick="closeMenu();navigate('shop')"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>المتجر</a>
     <a onclick="closeMenu();navigate('services')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>خدماتنا</a>
@@ -728,6 +770,7 @@ img{display:block;max-width:100%}
   <div class="menu-footer">© Heba Ahmed Gallery 2024</div>
 </div>
 
+<!-- CART SHEET -->
 <div class="sheet" id="cart-sheet">
   <div class="sheet-bd" onclick="closeSheet('cart-sheet')"></div>
   <div class="sheet-c">
@@ -738,6 +781,18 @@ img{display:block;max-width:100%}
   </div>
 </div>
 
+<!-- INSTALL BANNER -->
+<div id="install-banner" role="dialog" aria-label="تثبيت التطبيق">
+  <div class="ib-icon"><img src="https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg" alt=""></div>
+  <div class="ib-body">
+    <div class="ib-title">📲 ثبّتي التطبيق على جهازك</div>
+    <div class="ib-sub">وصول أسرع من الشاشة الرئيسية</div>
+  </div>
+  <button class="ib-install" onclick="promptInstall()">تثبيت</button>
+  <button class="ib-close" onclick="dismissInstall()" aria-label="إغلاق">✕</button>
+</div>
+
+<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <button class="close">✕</button>
   <img id="lightbox-img" src="">
@@ -779,7 +834,7 @@ function hideSplash(){
   }, 2400);
 }
 
-/* WELCOME — تظهر وتختفي بسرعة */
+/* WELCOME */
 let welcomeTimer;
 function showWelcome(){
   if(sessionStorage.getItem('hg_welcomed_v4')) return;
@@ -1191,6 +1246,132 @@ window.addEventListener('scroll', ()=>{
   if(window.scrollY > 400 && !document.querySelector('.view.active#view-product')) hideStickyBar();
 }, {passive:true});
 
+/* ═══════════════════════════════════════════════════════════════
+   PWA INSTALL
+   ═══════════════════════════════════════════════════════════════ */
+let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  const mi = document.getElementById('menu-install-item');
+  if (mi) mi.style.display = 'flex';
+
+  const dismissed = localStorage.getItem('hg_install_dismissed');
+  const sevenDays = 7 * 24 * 60 * 60 * 1000;
+  const shouldShow = !dismissed || (Date.now() - Number(dismissed)) > sevenDays;
+
+  if (shouldShow) {
+    setTimeout(showInstallBanner, 3500);
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  hideInstallBanner();
+  const mi = document.getElementById('menu-install-item');
+  if (mi) mi.style.display = 'none';
+  deferredPrompt = null;
+  toast('🎉 تم تثبيت التطبيق بنجاح');
+});
+
+function showInstallBanner() {
+  const b = document.getElementById('install-banner');
+  if (!b) return;
+  b.classList.add('show');
+  document.body.classList.add('has-install-banner');
+  setTimeout(() => {
+    if (b.classList.contains('show')) dismissInstall(false);
+  }, 20000);
+}
+
+function hideInstallBanner() {
+  const b = document.getElementById('install-banner');
+  if (!b) return;
+  b.classList.remove('show');
+  document.body.classList.remove('has-install-banner');
+}
+
+function dismissInstall(persist = true) {
+  hideInstallBanner();
+  if (persist) localStorage.setItem('hg_install_dismissed', Date.now().toString());
+}
+
+async function promptInstall() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      hideInstallBanner();
+      toast('🎉 جاري تثبيت التطبيق...');
+    }
+    deferredPrompt = null;
+    const mi = document.getElementById('menu-install-item');
+    if (mi) mi.style.display = 'none';
+    return;
+  }
+
+  if (isIOS()) {
+    showIOSInstructions();
+    return;
+  }
+
+  if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+    toast('✅ التطبيق مثبت بالفعل');
+    return;
+  }
+
+  toast('افتحي قائمة المتصفح (⋮) واختاري "تثبيت التطبيق"');
+}
+
+function isIOS() {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
+function showIOSInstructions() {
+  if (document.querySelector('.ios-inst-modal')) return;
+  const modal = document.createElement('div');
+  modal.className = 'ios-inst-modal';
+  modal.innerHTML = `
+    <div class="ios-inst-card">
+      <div style="font-size:44px;margin-bottom:10px">📲</div>
+      <h3>ثبّتي التطبيق على iPhone</h3>
+      <div class="ios-inst-steps">
+        <div class="step"><span class="num">1</span><span>اضغطي زر <b>المشاركة</b> في Safari</span><span class="ico">⬆️</span></div>
+        <div class="step"><span class="num">2</span><span>اختاري <b>إضافة إلى الشاشة الرئيسية</b></span><span class="ico" style="background:#34c759">➕</span></div>
+        <div class="step"><span class="num">3</span><span>اضغطي <b>إضافة</b> في الأعلى</span></div>
+      </div>
+      <button class="ios-inst-btn" onclick="this.closest('.ios-inst-modal').remove()">تمام</button>
+    </div>
+  `;
+  modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+  document.body.appendChild(modal);
+}
+
+/* iOS Fallback - show install item even without beforeinstallprompt */
+if (isIOS() && !window.navigator.standalone) {
+  setTimeout(() => {
+    const mi = document.getElementById('menu-install-item');
+    if (mi) mi.style.display = 'flex';
+  }, 1500);
+}
+
+/* Hide install UI if already installed */
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+  setTimeout(() => {
+    const mi = document.getElementById('menu-install-item');
+    if (mi) mi.style.display = 'none';
+  }, 100);
+}
+
+/* SERVICE WORKER REGISTRATION */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
+
 /* INIT */
 async function init(){
   animateSplash();
@@ -1233,8 +1414,6 @@ async function init(){
   } catch(err){ console.error(err); }
   finally { hideSplash(); }
 }
-
-if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
 
 init();
 </script>

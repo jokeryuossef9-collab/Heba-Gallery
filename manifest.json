@@ -1,21 +1,67 @@
 {
-  "name": "Heba Gallery",
+  "name": "Heba Gallery | هدايا مميزة",
   "short_name": "Heba Gallery",
   "description": "هدايا مميزة.. وتفاصيل بتتحكي",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
   "background_color": "#0A3B3A",
   "theme_color": "#0A3B3A",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["shopping", "lifestyle", "personalization"],
   "icons": [
     {
-      "src": "logo.jpg",
+      "src": "https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg",
       "sizes": "192x192",
-      "type": "image/jpeg"
+      "type": "image/jpeg",
+      "purpose": "any"
     },
     {
-      "src": "logo.jpg",
+      "src": "https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    },
+    {
+      "src": "https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "المتجر",
+      "short_name": "المتجر",
+      "description": "تصفح المنتجات",
+      "url": "./index.html#shop",
+      "icons": [
+        {
+          "src": "https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "السلة",
+      "short_name": "السلة",
+      "description": "سلة المشتريات",
+      "url": "./index.html#cart",
+      "icons": [
+        {
+          "src": "https://i.postimg.cc/m2tBS70w/IMG-20261102-WA0076.jpg",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }
