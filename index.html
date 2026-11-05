@@ -21,6 +21,9 @@
   --cream:#F9F6F0;--white:#fff;--ink:#1d2b2a;--mut:#6b7876;
   --red:#d63031;--safe:env(safe-area-inset-bottom,0px);
   --bg-img:url('https://i.postimg.cc/255szYrq/Duck-ai-image-2026-11-02-11-27.jpg');
+  --menu-bg-img:url('https://i.postimg.cc/QCpw2ssG/IMG-20261102-WA0090.jpg');
+  /* رابط صورة الكارت الأخضر الجديدة */
+  --brand-bg-img:url('https://i.postimg.cc/63kn72Sr/IMG-20261102-WA0088.jpg');
   --ease:cubic-bezier(.34,1.56,.64,1);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -31,7 +34,7 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 img{display:block;max-width:100%}
 ::-webkit-scrollbar{width:0;height:0}
 
-/* ═══════ SPLASH ═══════ */
+/* SPLASH */
 #splash{position:fixed;inset:0;z-index:99999;background:var(--bg-img) center/cover no-repeat;display:flex;align-items:center;justify-content:center;transition:opacity .9s,visibility .9s}
 #splash::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(6,31,30,.7),rgba(6,31,30,.96))}
 #splash.hide{opacity:0;visibility:hidden;pointer-events:none}
@@ -52,7 +55,7 @@ img{display:block;max-width:100%}
 @keyframes spFade{0%{opacity:0}100%{opacity:1}}
 @keyframes spBar{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
 
-/* ═══════ WELCOME ═══════ */
+/* WELCOME */
 #welcome{position:fixed;top:max(calc(env(safe-area-inset-top,0px) + 14px),14px);left:50%;transform:translateX(-50%) translateY(-220%);z-index:800;width:calc(100% - 32px);max-width:400px;background:linear-gradient(135deg,rgba(10,59,58,.98),rgba(17,82,79,.98));backdrop-filter:blur(24px);border:1px solid rgba(201,164,85,.3);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 16px 48px rgba(0,0,0,.4);opacity:0;pointer-events:none;overflow:hidden;transition:transform .5s var(--ease),opacity .3s ease}
 #welcome.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
 #welcome .w-icon{width:42px;height:42px;border-radius:12px;background:rgba(201,164,85,.15);border:1px solid rgba(201,164,85,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
@@ -65,7 +68,7 @@ img{display:block;max-width:100%}
 #welcome .w-progress::after{content:'';position:absolute;top:0;right:0;height:100%;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-l));animation:wProgress 2s linear forwards}
 @keyframes wProgress{0%{width:100%}100%{width:0%}}
 
-/* ═══════ HEADER ═══════ */
+/* HEADER */
 .header{position:fixed;top:12px;left:12px;right:12px;z-index:100;background:rgba(10,59,58,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:8px 10px;display:grid;grid-template-columns:auto 1fr auto auto auto;gap:6px;align-items:center;border-radius:18px;border:1px solid rgba(201,164,85,.25);box-shadow:0 6px 24px rgba(0,0,0,.18)}
 .brand{display:flex;align-items:center;gap:8px;justify-self:start;min-width:0;padding-right:4px}
 .brand img{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--gold);flex-shrink:0;box-shadow:0 0 10px rgba(201,164,85,.3)}
@@ -77,33 +80,39 @@ img{display:block;max-width:100%}
 .hbtn.fav-btn{background:rgba(214,48,49,.15);border-color:rgba(214,48,49,.35);color:#ff6b6b}
 .hbtn.fav-btn.fav-active{background:linear-gradient(135deg,var(--red),#b71c1c);color:#fff;border-color:rgba(255,107,107,.5);animation:favPulse 2s infinite}
 .hbtn.fav-btn.fav-active svg{fill:#fff;stroke:#fff}
-@keyframes favPulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(214,48,49,.6)}
-  50%{box-shadow:0 0 0 8px rgba(214,48,49,0)}
-}
+@keyframes favPulse{0%,100%{box-shadow:0 0 0 0 rgba(214,48,49,.6)}50%{box-shadow:0 0 0 8px rgba(214,48,49,0)}}
 .hbtn .mini-badge{position:absolute;top:-5px;left:-5px;background:var(--gold);color:var(--green-d);min-width:19px;height:19px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;padding:0 4px;border:1.5px solid var(--green);display:none;box-shadow:0 2px 6px rgba(0,0,0,.3)}
 .hbtn .mini-badge.on{display:flex;animation:badgePop .4s var(--ease)}
 @keyframes badgePop{0%{transform:scale(0)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
 .header.back-mode .hbtn.back{display:flex!important}
 .hbtn.back{display:none}
 
-/* ═══════ VIEWS ═══════ */
+/* VIEWS */
 .view{display:none;min-height:calc(100dvh - 84px);padding-bottom:calc(110px + var(--safe))}
 .view.active{display:block;animation:viewIn .4s var(--ease)}
 @keyframes viewIn{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
 
-/* ═══════ BENTO HOME ═══════ */
+/* BENTO */
 .bento{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 14px 32px;max-width:760px;margin:0 auto}
 .bento>.span2{grid-column:span 2}
 .bcard{background:var(--white);border-radius:22px;padding:20px;border:1px solid rgba(201,164,85,.12);box-shadow:0 4px 20px rgba(10,59,58,.05);position:relative;overflow:hidden;transition:transform .25s var(--ease)}
 .bcard:active{transform:scale(.97)}
 
-.bcard.brand-card{background:linear-gradient(135deg,var(--green),var(--green-d));color:var(--gold);padding:26px 22px 22px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
-.bcard.brand-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(201,164,85,.22),transparent 70%);border-radius:50%}
-.brand-eyebrow{font-family:'Playfair Display',serif;font-style:italic;font-size:11px;letter-spacing:3px;color:var(--gold-l);opacity:.85}
-.brand-title{font-family:'Playfair Display',serif;font-size:54px;line-height:.85;letter-spacing:-2px;color:var(--gold);margin-top:14px;font-weight:700;position:relative;z-index:1}
-.brand-title em{font-style:italic;color:var(--gold-l);display:block;padding-right:22px}
-.brand-foot{display:flex;justify-content:space-between;font-size:10px;letter-spacing:2px;color:var(--gold-l);opacity:.7;margin-top:18px;position:relative;z-index:1;font-weight:700}
+/* ⬇⬇⬇ الكارت الأخضر - ضبطنا الصورة تظهر كاملة ⬇⬇⬇ */
+.bcard.brand-card{
+  background-color:var(--green-d);
+  background-image:var(--brand-bg-img);
+  background-position:center center;
+  background-size:contain; /* الصورة تظهر كاملة جوه المربع */
+  background-repeat:no-repeat;
+  padding:0;
+  min-height:190px;
+  cursor:pointer;
+  border:none;
+}
+.bcard.brand-card > div{display:none}
+.bcard.brand-card::before{display:none}
+/* ⬆⬆⬆ */
 
 .bcard.stats{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0}
 .stat-item{padding:20px 12px;text-align:center;border-right:1px solid rgba(201,164,85,.15);border-bottom:1px solid rgba(201,164,85,.15)}
@@ -154,7 +163,7 @@ img{display:block;max-width:100%}
 .cta-icon{font-size:30px;margin-bottom:10px}
 .cta-text{font-size:12px;font-weight:800;font-family:'Playfair Display',serif;letter-spacing:.5px}
 
-/* ═══════ SHOP ═══════ */
+/* SHOP */
 .shop-toolbar{position:sticky;top:70px;z-index:50;background:rgba(249,246,240,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:14px 16px 10px;border-bottom:1px solid rgba(201,164,85,.15);max-width:760px;margin:0 auto}
 .shop-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:12px}
 .shop-head .eyebrow{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold-d);font-size:11px;letter-spacing:2.5px;display:block;margin-bottom:4px}
@@ -188,7 +197,7 @@ img{display:block;max-width:100%}
 .p-card .pr{color:var(--gold-d);font-weight:900;font-size:14px;font-family:'Playfair Display',serif}
 .p-card .pr small{color:#bbb;text-decoration:line-through;font-weight:600;font-size:10px;margin-right:5px;font-family:'Cairo'}
 
-/* ═══════ PRODUCT ═══════ */
+/* PRODUCT */
 .pd-hero{position:relative;background:linear-gradient(135deg,#f5f0e8,#ebe5d8);display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:320px}
 .pd-hero img{width:100%;aspect-ratio:1;object-fit:contain;cursor:zoom-in;max-width:100%;max-height:100%}
 .pd-actions-float{position:absolute;top:16px;left:16px;right:16px;display:flex;justify-content:space-between;pointer-events:none}
@@ -217,7 +226,7 @@ img{display:block;max-width:100%}
 .sticky-bar .price-mini small{color:var(--mut);font-size:10px}
 .sticky-bar .btn{flex:1.5;padding:12px 18px}
 
-/* ═══════ STORY ═══════ */
+/* STORY */
 .story-header{padding:36px 20px 24px;text-align:center;background:linear-gradient(180deg,rgba(10,59,58,.06),transparent);max-width:700px;margin:0 auto}
 .story-avatar{width:100px;height:100px;border-radius:50%;border:3px solid var(--gold);margin:0 auto 16px;box-shadow:0 0 40px rgba(201,164,85,.3);object-fit:cover}
 .story-header h1{font-family:'Playfair Display',serif;color:var(--green);font-size:30px;font-weight:700;line-height:1.1;letter-spacing:-.5px;margin-bottom:6px}
@@ -241,7 +250,7 @@ img{display:block;max-width:100%}
 .tl-sign{text-align:center;padding:8px 20px 24px;font-family:'Playfair Display',serif;color:var(--gold-d);font-style:italic;font-size:16px;font-weight:700}
 .tl-sign small{display:block;color:var(--mut);font-family:'Cairo';font-size:11px;margin-top:4px;font-weight:400;font-style:normal}
 
-/* ═══════ SERVICES ═══════ */
+/* SERVICES */
 .services-wrap{padding:24px 20px 32px;max-width:700px;margin:0 auto}
 .svc-card{background:var(--white);border-radius:18px;padding:0;margin-bottom:12px;box-shadow:0 4px 16px rgba(10,59,58,.06);border:1px solid rgba(201,164,85,.12);overflow:hidden;cursor:pointer;transition:.3s}
 .svc-card.open{border-color:var(--gold)}
@@ -255,7 +264,7 @@ img{display:block;max-width:100%}
 .svc-card.open .svc-body{max-height:300px;padding:0 20px 20px}
 .svc-body p{font-size:13px;line-height:1.9;color:var(--mut);padding-right:58px}
 
-/* ═══════ TESTIMONIALS ═══════ */
+/* TESTIMONIALS */
 .testi-wrap{padding:24px 20px 32px;max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
 .testi-lg{background:var(--white);border-radius:20px;padding:26px 24px 22px;box-shadow:0 4px 20px rgba(10,59,58,.06);border:1px solid rgba(201,164,85,.12);position:relative}
 .testi-lg::before{content:'"';position:absolute;top:6px;right:20px;font-size:90px;line-height:1;color:var(--gold);opacity:.12;font-family:'Playfair Display',serif;font-weight:900}
@@ -265,7 +274,7 @@ img{display:block;max-width:100%}
 .testi-lg .t-meta b{display:block;font-size:14px;color:var(--ink);margin-bottom:3px}
 .testi-lg .t-stars{font-size:12px;color:var(--gold);letter-spacing:1.5px}
 
-/* ═══════ CONTACT ═══════ */
+/* CONTACT */
 .contact-header{padding:32px 20px 24px;text-align:center;max-width:640px;margin:0 auto}
 .contact-header .ic-big{width:74px;height:74px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-l));color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px;box-shadow:0 8px 24px rgba(10,59,58,.25)}
 .contact-header h2{font-family:'Playfair Display',serif;color:var(--green);font-size:24px;margin-bottom:6px;font-weight:700}
@@ -282,7 +291,7 @@ img{display:block;max-width:100%}
 .shipping-card h3{font-family:'Playfair Display',serif;color:var(--gold-l);font-size:18px;margin-bottom:6px;position:relative;z-index:1;font-weight:700}
 .shipping-card p{color:var(--gold-l);opacity:.8;font-size:12px;line-height:1.7;position:relative;z-index:1}
 
-/* ═══════ FAQ ═══════ */
+/* FAQ */
 .faq-wrap{padding:24px 20px 32px;max-width:700px;margin:0 auto}
 .faq{background:var(--white);border-radius:14px;border:1px solid rgba(201,164,85,.15);box-shadow:0 2px 8px rgba(10,59,58,.04);overflow:hidden;margin-bottom:10px;transition:.2s}
 .faq.open{border-color:var(--gold)}
@@ -293,10 +302,10 @@ img{display:block;max-width:100%}
 .faq.open .faq-a{max-height:250px;padding:0 18px 16px}
 .faq-a p{font-size:13px;color:var(--mut);line-height:1.85}
 
-/* ═══════ FAVS ═══════ */
+/* FAVS */
 .favs-wrap{padding:24px 16px 32px;max-width:760px;margin:0 auto}
 
-/* ═══════ BOTTOM NAV ═══════ */
+/* BOTTOM NAV */
 .bnav{position:fixed;bottom:calc(12px + var(--safe));left:12px;right:12px;z-index:150;background:rgba(255,255,255,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(201,164,85,.25);border-radius:20px;display:grid;grid-template-columns:repeat(5,1fr);padding:7px 4px;box-shadow:0 8px 28px rgba(10,59,58,.15)}
 .bnav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;color:var(--mut);font-size:9px;font-weight:700;border-radius:12px;position:relative;letter-spacing:.2px}
 .bnav-btn svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:.2s}
@@ -304,7 +313,7 @@ img{display:block;max-width:100%}
 .bnav-btn.on svg{stroke:var(--gold);fill:rgba(201,164,85,.18);transform:scale(1.1)}
 .bnav-btn .dot{position:absolute;top:5px;right:calc(50% - 13px);width:8px;height:8px;border-radius:50%;background:#ff4757;border:1.5px solid #fff}
 
-/* ═══════ SHEETS ═══════ */
+/* SHEETS */
 .sheet{position:fixed;inset:0;z-index:200;display:none;align-items:flex-end;justify-content:center}
 .sheet.on{display:flex}
 .sheet-bd{position:absolute;inset:0;background:rgba(6,31,30,.65);backdrop-filter:blur(4px);animation:fadeIn .3s}
@@ -342,21 +351,38 @@ img{display:block;max-width:100%}
 .gift-toggle{display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(201,164,85,.08);border-radius:12px;border:1px dashed rgba(201,164,85,.4);margin-bottom:10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--green)}
 .gift-toggle input{width:auto;margin:0}
 
-/* ═══════ MENU ═══════ */
-.menu-drawer{position:fixed;top:0;right:0;height:100%;width:min(320px,88%);background:linear-gradient(180deg,var(--green),var(--green-d));z-index:250;display:none;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+/* MENU — الصورة كخلفية */
+.menu-drawer{
+  position:fixed;top:0;right:0;height:100%;width:min(320px,88%);
+  background-color:var(--green-d);
+  background-image:var(--menu-bg-img);
+  background-position:center center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  z-index:250;display:none;flex-direction:column;
+  padding-top:env(safe-area-inset-top,0px);
+  overflow:hidden;
+  isolation:isolate;
+}
+.menu-drawer::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,59,58,.78),rgba(6,31,30,.92));
+  z-index:0;pointer-events:none;
+}
+.menu-drawer > *{position:relative;z-index:1}
 .menu-drawer.on{display:flex;animation:slideInRight .3s var(--ease)}
 @keyframes slideInRight{0%{transform:translateX(100%)}100%{transform:translateX(0)}}
-.menu-head{padding:28px 20px 20px;text-align:center;border-bottom:1px solid rgba(201,164,85,.15)}
-.menu-head img{width:74px;height:74px;border-radius:50%;border:2px solid var(--gold);margin:0 auto 14px;box-shadow:0 0 30px rgba(201,164,85,.4)}
-.menu-head .n{font-family:'Playfair Display',serif;color:var(--gold);font-size:22px;font-weight:700}
-.menu-head .s{color:var(--gold-l);font-size:10px;letter-spacing:3px;margin-top:4px;opacity:.7}
+.menu-head{padding:28px 20px 20px;text-align:center;border-bottom:1px solid rgba(201,164,85,.2);background:rgba(10,59,58,.25);backdrop-filter:blur(2px)}
+.menu-head img{width:74px;height:74px;border-radius:50%;border:2px solid var(--gold);margin:0 auto 14px;box-shadow:0 0 30px rgba(201,164,85,.5)}
+.menu-head .n{font-family:'Playfair Display',serif;color:var(--gold);font-size:22px;font-weight:700;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+.menu-head .s{color:var(--gold-l);font-size:10px;letter-spacing:3px;margin-top:4px;opacity:.9}
 .menu-list{padding:14px;flex:1;overflow-y:auto}
-.menu-list a{display:flex;align-items:center;gap:14px;padding:14px 16px;color:var(--gold-l);font-weight:700;font-size:14px;border-radius:12px;margin-bottom:2px;cursor:pointer}
-.menu-list a:active{background:rgba(201,164,85,.15)}
+.menu-list a{display:flex;align-items:center;gap:14px;padding:14px 16px;color:var(--gold-l);font-weight:700;font-size:14px;border-radius:12px;margin-bottom:2px;cursor:pointer;transition:.2s}
+.menu-list a:active{background:rgba(201,164,85,.2)}
 .menu-list a svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.8}
-.menu-footer{padding:16px;border-top:1px solid rgba(201,164,85,.15);color:var(--gold-l);text-align:center;font-size:10px;opacity:.5;letter-spacing:2px}
+.menu-footer{padding:16px;border-top:1px solid rgba(201,164,85,.2);color:var(--gold-l);text-align:center;font-size:10px;opacity:.6;letter-spacing:2px;background:rgba(6,31,30,.35)}
 
-/* ═══════ SEARCH ═══════ */
+/* SEARCH */
 .search-ov{position:fixed;inset:0;z-index:300;background:var(--cream);display:none;flex-direction:column}
 .search-ov.on{display:flex;animation:fadeIn .2s}
 .search-head{padding:14px 16px;background:var(--green);display:flex;gap:10px;align-items:center;padding-top:calc(14px + env(safe-area-inset-top,0px))}
@@ -367,24 +393,24 @@ img{display:block;max-width:100%}
 .search-empty{text-align:center;padding:60px 20px;color:var(--mut)}
 .search-empty svg{width:60px;height:60px;stroke:#ccc;margin-bottom:14px}
 
-/* ═══════ FLOATS ═══════ */
+/* FLOATS */
 .wa-float{position:fixed;bottom:calc(90px + var(--safe));left:16px;z-index:55;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#25d366,#1ead50);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 6px 20px rgba(37,211,102,.5);animation:waPulse 2.5s infinite}
 @keyframes waPulse{0%,100%{box-shadow:0 6px 20px rgba(37,211,102,.5),0 0 0 0 rgba(37,211,102,.5)}50%{box-shadow:0 6px 20px rgba(37,211,102,.5),0 0 0 12px rgba(37,211,102,0)}}
 .back-top{position:fixed;bottom:calc(90px + var(--safe));right:16px;z-index:55;width:44px;height:44px;border-radius:50%;background:var(--green);color:var(--gold);display:none;align-items:center;justify-content:center;font-size:18px;box-shadow:0 6px 20px rgba(10,59,58,.35);border:1px solid rgba(201,164,85,.3)}
 .back-top.show{display:flex;animation:viewIn .3s}
 
-/* ═══════ TOAST ═══════ */
+/* TOAST */
 #toast{position:fixed;bottom:calc(155px + var(--safe));left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg,var(--green),var(--green-l));color:var(--gold);padding:12px 24px;border-radius:26px;font:700 13px 'Cairo';z-index:500;opacity:0;transition:.3s;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:90vw;text-align:center;display:flex;align-items:center;gap:8px}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ═══════ CONFETTI & LIGHTBOX ═══════ */
+/* CONFETTI & LIGHTBOX */
 .confetti-piece{position:fixed;width:8px;height:8px;z-index:600;pointer-events:none;border-radius:2px}
 .lightbox{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;padding:20px}
 .lightbox.on{display:flex;animation:fadeIn .2s}
 .lightbox img{max-width:100%;max-height:100%;border-radius:12px;object-fit:contain}
 .lightbox .close{position:absolute;top:20px;right:20px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
 
-/* ═══════ EMPTY & SKELETON ═══════ */
+/* EMPTY & SKELETON */
 .empty-state{text-align:center;padding:60px 20px}
 .empty-state .es-emoji{font-size:70px;margin-bottom:16px;opacity:.9}
 .empty-state h3{font-family:'Playfair Display',serif;color:var(--green);font-size:20px;margin-bottom:8px;font-weight:700}
@@ -398,7 +424,7 @@ img{display:block;max-width:100%}
 .btn.block{width:100%;padding:15px}
 .btn.green{background:linear-gradient(135deg,#25d366,#1ead50);color:#fff}
 
-/* ═══════ DESKTOP ═══════ */
+/* DESKTOP */
 @media(min-width:640px){
   .grid{grid-template-columns:repeat(3,1fr)}
   .bento{grid-template-columns:repeat(3,1fr);max-width:900px}
@@ -423,16 +449,8 @@ img{display:block;max-width:100%}
   .bento{max-width:1000px}
 }
 
-/* ═══════ PWA INSTALL BANNER ═══════ */
-#install-banner{
-  position:fixed;bottom:calc(80px + var(--safe));left:12px;right:12px;
-  z-index:145;background:linear-gradient(135deg,var(--green),var(--green-d));
-  border:1px solid rgba(201,164,85,.5);border-radius:18px;padding:12px 14px;
-  display:none;align-items:center;gap:12px;
-  box-shadow:0 12px 36px rgba(0,0,0,.35),0 0 0 1px rgba(201,164,85,.2);
-  transform:translateY(150%);transition:transform .5s var(--ease),opacity .3s;
-  opacity:0;max-width:400px;margin:0 auto;
-}
+/* PWA INSTALL BANNER */
+#install-banner{position:fixed;bottom:calc(80px + var(--safe));left:12px;right:12px;z-index:145;background:linear-gradient(135deg,var(--green),var(--green-d));border:1px solid rgba(201,164,85,.5);border-radius:18px;padding:12px 14px;display:none;align-items:center;gap:12px;box-shadow:0 12px 36px rgba(0,0,0,.35),0 0 0 1px rgba(201,164,85,.2);transform:translateY(150%);transition:transform .5s var(--ease),opacity .3s;opacity:0;max-width:400px;margin:0 auto}
 #install-banner.show{display:flex;transform:translateY(0);opacity:1}
 .ib-icon{width:44px;height:44px;border-radius:12px;border:1.5px solid var(--gold);overflow:hidden;flex-shrink:0;box-shadow:0 0 20px rgba(201,164,85,.4)}
 .ib-icon img{width:100%;height:100%;object-fit:cover}
@@ -445,7 +463,7 @@ img{display:block;max-width:100%}
 body.has-install-banner .wa-float,
 body.has-install-banner .back-top{bottom:calc(175px + var(--safe));transition:bottom .35s var(--ease)}
 body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
-#menu-install-item{display:none;background:linear-gradient(135deg,rgba(201,164,85,.18),rgba(201,164,85,.08))!important;border:1px solid rgba(201,164,85,.35);margin-bottom:8px!important;position:relative;overflow:hidden}
+#menu-install-item{display:none;background:linear-gradient(135deg,rgba(201,164,85,.25),rgba(201,164,85,.12))!important;border:1px solid rgba(201,164,85,.45);margin-bottom:8px!important;position:relative;overflow:hidden}
 #menu-install-item::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5}
 .ios-inst-modal{position:fixed;inset:0;z-index:9999;background:rgba(6,31,30,.85);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s}
 .ios-inst-card{background:var(--cream);border-radius:22px;padding:26px 22px;max-width:340px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4);position:relative;z-index:1}
@@ -597,11 +615,7 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
 <div class="view" id="view-product"><div id="product-content"></div></div>
 
 <!-- FAVS -->
-<div class="view" id="view-favs">
-  <div class="favs-wrap">
-    <div class="grid" id="favs-grid"></div>
-  </div>
-</div>
+<div class="view" id="view-favs"><div class="favs-wrap"><div class="grid" id="favs-grid"></div></div></div>
 
 <!-- SERVICES -->
 <div class="view" id="view-services">
@@ -665,10 +679,7 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
     <div class="tl-item">
       <div class="tl-dot"></div>
       <div class="tl-year">— الرؤية</div>
-      <div class="tl-card vision">
-        <h3>رؤيتنا</h3>
-        <p id="vision-text">جاري التحميل...</p>
-      </div>
+      <div class="tl-card vision"><h3>رؤيتنا</h3><p id="vision-text">جاري التحميل...</p></div>
     </div>
     <div class="tl-item">
       <div class="tl-dot"></div>
@@ -680,14 +691,10 @@ body.has-install-banner #toast{bottom:calc(245px + var(--safe))}
 </div>
 
 <!-- TESTIMONIALS -->
-<div class="view" id="view-testimonials">
-  <div class="testi-wrap" id="testi-full"></div>
-</div>
+<div class="view" id="view-testimonials"><div class="testi-wrap" id="testi-full"></div></div>
 
 <!-- FAQ -->
-<div class="view" id="view-faq">
-  <div class="faq-wrap" id="faq-list"></div>
-</div>
+<div class="view" id="view-faq"><div class="faq-wrap" id="faq-list"></div></div>
 
 <!-- CONTACT -->
 <div class="view" id="view-contact">
@@ -820,7 +827,6 @@ const pageTitles = { home:'Heba Ahmed Gallery', shop:'المتجر', product:'ت
 let tTimer;
 function toast(msg){ const t=$('#toast'); t.innerHTML = msg; t.classList.add('on'); clearTimeout(tTimer); tTimer=setTimeout(()=>t.classList.remove('on'),2400); }
 
-/* SPLASH */
 function animateSplash(){
   const el = $('#sp-name'); if(!el) return;
   el.innerHTML = 'Heba Ahmed Gallery'.split('').map((ch,i)=> ch===' ' ? '<span style="width:.4em">&nbsp;</span>' : `<span style="animation-delay:${0.3+i*0.055}s">${ch}</span>`).join('');
@@ -830,11 +836,10 @@ function hideSplash(){
     const sp = $('#splash'); if(!sp) return;
     sp.classList.add('hide');
     setTimeout(showWelcome, 300);
-    setTimeout(()=>sp.remove(), 900);
+    setTimeout(()=>{ if(sp && sp.parentNode) sp.remove(); }, 900);
   }, 2400);
 }
 
-/* WELCOME */
 let welcomeTimer;
 function showWelcome(){
   if(sessionStorage.getItem('hg_welcomed_v4')) return;
@@ -851,7 +856,6 @@ function closeWelcome(){
   clearTimeout(welcomeTimer);
 }
 
-/* NAV */
 function navigate(page, opts={}){
   const cur = document.querySelector('.view.active');
   if(cur && cur.id === 'view-'+page && !opts.force) return;
@@ -872,7 +876,6 @@ function goBack(){
   else navigate('home');
 }
 
-/* COUNTER */
 function animCounter(el, target, dur=1800){
   if(!el) return;
   const start = performance.now();
@@ -884,7 +887,6 @@ function animCounter(el, target, dur=1800){
   requestAnimationFrame(u);
 }
 
-/* FAVS */
 function toggleFav(id, ev){
   if(ev) ev.stopPropagation();
   const idx = favs.indexOf(id);
@@ -915,7 +917,6 @@ function drawFavs(){
   $('#favs-grid').innerHTML = list.map(p=>productCardHTML(p)).join('');
 }
 function openFavs(){ navigate('favs'); }
-
 function addToRecent(id){
   recent = recent.filter(x => x !== id);
   recent.unshift(id);
@@ -923,7 +924,6 @@ function addToRecent(id){
   localStorage.setItem('hg_recent', JSON.stringify(recent));
 }
 
-/* PRODUCT CARD */
 function productCardHTML(p){
   const isFav = favs.includes(p.id);
   let badge = '';
@@ -944,7 +944,6 @@ function productCardHTML(p){
   </div>`;
 }
 
-/* BENTO HOME */
 function drawBentoFeatured(){
   const featured = products.filter(p=>p.featured)[0] || products[0];
   const el = $('#bento-featured');
@@ -985,19 +984,11 @@ function drawBentoTesti(){
     <p class="testi-body">${esc(t.text)}</p>
     <div class="testi-meta">
       <div class="testi-av">${esc((t.name||'ع').trim().charAt(0))}</div>
-      <div>
-        <b>${esc(t.name)}</b>
-        <div class="testi-stars">${stars}</div>
-      </div>
+      <div><b>${esc(t.name)}</b><div class="testi-stars">${stars}</div></div>
     </div>`;
 }
-function drawBento(){
-  drawBentoFeatured();
-  drawBentoNew();
-  drawBentoTesti();
-}
+function drawBento(){ drawBentoFeatured(); drawBentoNew(); drawBentoTesti(); }
 
-/* TESTIMONIALS FULL */
 function drawTestiFull(){
   const el = $('#testi-full');
   if(!el) return;
@@ -1017,22 +1008,19 @@ function drawTestiFull(){
   }).join('');
 }
 
-/* CATS */
 function drawCats(){
   const list = [['all','الكل'], ...cats.map(c=>[c.name,c.name])];
   $('#cats-scroll').innerHTML = list.map(([k,l])=>`<button class="cat-pill ${k===currentCat?'on':''}" onclick="setCat('${esc(k)}')">${esc(l)}</button>`).join('');
 }
 function setCat(k){ currentCat=k; drawCats(); drawShopGrid(); }
 
-/* SORT */
 function setSort(mode){
   sortMode = mode;
   $$('.sort-btn').forEach(b=>b.classList.remove('on'));
-  event.currentTarget.classList.add('on');
+  if(event && event.currentTarget) event.currentTarget.classList.add('on');
   drawShopGrid();
 }
 
-/* SHOP SEARCH */
 function doShopSearch(){
   shopSearchQ = $('#shop-search-input').value.trim().toLowerCase();
   drawShopGrid();
@@ -1052,7 +1040,6 @@ function drawShopGrid(){
   $('#shop-grid').innerHTML = filtered.map(p=>productCardHTML(p)).join('');
 }
 
-/* PRODUCT PAGE */
 function renderProduct(id){
   const p = products.find(x=>x.id===id);
   if(!p){ $('#product-content').innerHTML = '<div style="padding:60px 20px;text-align:center;color:var(--mut)">المنتج غير موجود</div>'; return; }
@@ -1129,7 +1116,6 @@ function shareProduct(id){
 function openLightbox(src){ $('#lightbox-img').src = src; $('#lightbox').classList.add('on'); }
 function closeLightbox(){ $('#lightbox').classList.remove('on'); }
 
-/* CONFETTI */
 function fireConfetti(){
   const colors = ['#C9A455','#E8CF8F','#0A3B3A','#25d366','#d63031'];
   for(let i=0; i<30; i++){
@@ -1151,7 +1137,6 @@ function fireConfetti(){
   }
 }
 
-/* CART */
 function saveCart(){ localStorage.setItem('hg_cart_v7', JSON.stringify(cart)); drawCart(); updateCartDot(); }
 function updateCartDot(){
   const tQty = cart.reduce((a,i)=>a+i.qty,0);
@@ -1211,18 +1196,15 @@ function openCart(){ drawCart(); openSheet('cart-sheet'); }
 function openSheet(id){ document.getElementById(id).classList.add('on'); document.body.style.overflow='hidden'; }
 function closeSheet(id){ document.getElementById(id).classList.remove('on'); document.body.style.overflow=''; }
 
-/* MENU */
 function openMenu(){ $('#menu-drawer').classList.add('on'); document.body.style.overflow='hidden'; }
 function closeMenu(){ $('#menu-drawer').classList.remove('on'); document.body.style.overflow=''; }
 
-/* SERVICES ACCORDION */
 function toggleSvc(el){
   const isOpen = el.classList.contains('open');
   $$('.svc-card').forEach(c => c.classList.remove('open'));
   if(!isOpen) el.classList.add('open');
 }
 
-/* FAQ */
 const faqs = [
   ['مدة التنفيذ كام يوم؟', 'التنفيذ بياخد من 3 لـ 5 أيام عمل حسب المنتج، والقطع المخصصة ممكن تاخد وقت أطول شوية. بنبلغك بالمدة قبل ما تأكدي الطلب.'],
   ['بتوصلوا لكل المحافظات؟', 'أيوه، بنشحن لجميع محافظات مصر. الشحن مجاني للطلبات فوق 500 ج.م.'],
@@ -1231,7 +1213,7 @@ const faqs = [
   ['أقدر أرجّع المنتج؟', 'المنتجات المخصصة مش بترجع، لكن لو فيه عيب في التنفيذ بنصلحه أو نستبدله.'],
 ];
 function drawFaq(){
-  $('#faq-list').innerHTML = faqs.map(([q,a],i)=>`
+  $('#faq-list').innerHTML = faqs.map(([q,a])=>`
     <div class="faq" onclick="this.classList.toggle('open')">
       <div class="faq-q"><span>${esc(q)}</span><span class="ic">+</span></div>
       <div class="faq-a"><p>${esc(a)}</p></div>
@@ -1239,34 +1221,24 @@ function drawFaq(){
   `).join('');
 }
 
-/* SCROLL */
 window.addEventListener('scroll', ()=>{
   const bt = $('#back-top');
   if(bt) bt.classList.toggle('show', window.scrollY > 500);
   if(window.scrollY > 400 && !document.querySelector('.view.active#view-product')) hideStickyBar();
 }, {passive:true});
 
-/* ═══════════════════════════════════════════════════════════════
-   PWA INSTALL
-   ═══════════════════════════════════════════════════════════════ */
+/* PWA INSTALL */
 let deferredPrompt = null;
-
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-
   const mi = document.getElementById('menu-install-item');
   if (mi) mi.style.display = 'flex';
-
   const dismissed = localStorage.getItem('hg_install_dismissed');
   const sevenDays = 7 * 24 * 60 * 60 * 1000;
   const shouldShow = !dismissed || (Date.now() - Number(dismissed)) > sevenDays;
-
-  if (shouldShow) {
-    setTimeout(showInstallBanner, 3500);
-  }
+  if (shouldShow) setTimeout(showInstallBanner, 3500);
 });
-
 window.addEventListener('appinstalled', () => {
   hideInstallBanner();
   const mi = document.getElementById('menu-install-item');
@@ -1274,61 +1246,42 @@ window.addEventListener('appinstalled', () => {
   deferredPrompt = null;
   toast('🎉 تم تثبيت التطبيق بنجاح');
 });
-
 function showInstallBanner() {
   const b = document.getElementById('install-banner');
   if (!b) return;
   b.classList.add('show');
   document.body.classList.add('has-install-banner');
-  setTimeout(() => {
-    if (b.classList.contains('show')) dismissInstall(false);
-  }, 20000);
+  setTimeout(() => { if (b.classList.contains('show')) dismissInstall(false); }, 20000);
 }
-
 function hideInstallBanner() {
   const b = document.getElementById('install-banner');
   if (!b) return;
   b.classList.remove('show');
   document.body.classList.remove('has-install-banner');
 }
-
 function dismissInstall(persist = true) {
   hideInstallBanner();
   if (persist) localStorage.setItem('hg_install_dismissed', Date.now().toString());
 }
-
 async function promptInstall() {
   if (deferredPrompt) {
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      hideInstallBanner();
-      toast('🎉 جاري تثبيت التطبيق...');
-    }
+    if (outcome === 'accepted') { hideInstallBanner(); toast('🎉 جاري تثبيت التطبيق...'); }
     deferredPrompt = null;
     const mi = document.getElementById('menu-install-item');
     if (mi) mi.style.display = 'none';
     return;
   }
-
-  if (isIOS()) {
-    showIOSInstructions();
-    return;
-  }
-
+  if (isIOS()) { showIOSInstructions(); return; }
   if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
-    toast('✅ التطبيق مثبت بالفعل');
-    return;
+    toast('✅ التطبيق مثبت بالفعل'); return;
   }
-
   toast('افتحي قائمة المتصفح (⋮) واختاري "تثبيت التطبيق"');
 }
-
 function isIOS() {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 }
-
 function showIOSInstructions() {
   if (document.querySelector('.ios-inst-modal')) return;
   const modal = document.createElement('div');
@@ -1348,31 +1301,17 @@ function showIOSInstructions() {
   modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
   document.body.appendChild(modal);
 }
-
-/* iOS Fallback - show install item even without beforeinstallprompt */
 if (isIOS() && !window.navigator.standalone) {
-  setTimeout(() => {
-    const mi = document.getElementById('menu-install-item');
-    if (mi) mi.style.display = 'flex';
-  }, 1500);
+  setTimeout(() => { const mi = document.getElementById('menu-install-item'); if (mi) mi.style.display = 'flex'; }, 1500);
 }
-
-/* Hide install UI if already installed */
 if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
-  setTimeout(() => {
-    const mi = document.getElementById('menu-install-item');
-    if (mi) mi.style.display = 'none';
-  }, 100);
+  setTimeout(() => { const mi = document.getElementById('menu-install-item'); if (mi) mi.style.display = 'none'; }, 100);
 }
 
-/* SERVICE WORKER REGISTRATION */
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
-  });
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
 }
 
-/* INIT */
 async function init(){
   animateSplash();
   updateFavBadge();
@@ -1411,11 +1350,20 @@ async function init(){
     drawShopGrid();
     drawTestiFull();
     drawCart();
-  } catch(err){ console.error(err); }
+  } catch(err){ console.error('init error:', err); }
   finally { hideSplash(); }
 }
 
 init();
 </script>
+
+<script>
+/* Safety net: يحمي من تعليق شاشة الفتح لو حصل خطأ غير متوقع */
+setTimeout(function(){
+  var s = document.getElementById('splash');
+  if (s && !s.classList.contains('hide')) s.classList.add('hide');
+}, 8000);
+</script>
+
 </body>
 </html>
